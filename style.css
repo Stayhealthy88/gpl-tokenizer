@@ -210,11 +210,11 @@ nav.visible {
 
 .hero-name-char {
   font-family: var(--serif);
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(1.8rem, 3.5vw, 3.2rem);
   font-weight: 400;
   color: rgba(240, 236, 228, 0.12);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
   transition: color 0.4s ease;
   cursor: default;
   user-select: none;
@@ -491,10 +491,11 @@ nav.visible {
 }
 .etymology-char {
   font-family: var(--serif);
-  font-size: 2.5rem;
+  font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: 400;
   color: var(--accent);
-  line-height: 1;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 .etymology-meaning {
   font-family: var(--mono);
