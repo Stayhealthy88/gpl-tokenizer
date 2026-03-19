@@ -63,6 +63,10 @@ function initHero() {
   });
   setTimeout(() => headline.classList.add('in'), 150);
 
+  // Name stack
+  const nameStack = document.querySelector('.hero-name-stack');
+  if (nameStack) setTimeout(() => nameStack.classList.add('in'), 300);
+
   // Rest of hero
   setTimeout(() => document.querySelector('.hero-bio').classList.add('in'), 400);
   setTimeout(() => document.querySelector('.hero-ctas').classList.add('in'), 500);

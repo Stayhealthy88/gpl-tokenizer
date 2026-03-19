@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BKW — Stayhealthy88</title>
+  <title>BKW — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -27,6 +27,7 @@
   <nav>
     <a class="nav-left" href="#">BKW</a>
     <div class="nav-center">
+      <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#writing">Writing</a>
@@ -39,34 +40,42 @@
   <section id="hero">
     <div class="hero-index">Milford Track, NZ / BKW / 2025</div>
 
-    <p class="hero-tagline">Adventurous traveler — Republic of Korea</p>
+    <!-- Vertical name stacked -->
+    <div class="hero-name-stack">
+      <span class="hero-name-char">변</span>
+      <span class="hero-name-char">규</span>
+      <span class="hero-name-char">욱</span>
+      <span class="hero-name-asterisk">*</span>
+    </div>
+
+    <p class="hero-tagline">ROK Officer — Daegu, KR</p>
 
     <h1 class="hero-headline" data-text="Reality, By System.">Reality, By System.</h1>
 
     <div class="hero-bottom">
       <p class="hero-bio">
-        "I manage a small coffee place and build automation systems by night.
-        Currently developing two startups — one for civilian safety,
-        one for community fitness — while preparing for life after service."
+        "I work in people management and cross-cultural coordination
+        by day. I build automation systems and develop startups
+        the rest of the time."
       </p>
       <div class="hero-ctas">
         <a href="#projects" class="btn-outline">View Projects</a>
-        <a href="#experience" class="btn-outline">Experience</a>
+        <a href="#about" class="btn-outline">About</a>
       </div>
     </div>
 
     <div class="hero-stats">
       <div>
+        <div class="hero-stat-num">20+</div>
+        <div class="hero-stat-label">People managed</div>
+      </div>
+      <div>
         <div class="hero-stat-num">02</div>
         <div class="hero-stat-label">Startups in development</div>
       </div>
       <div>
-        <div class="hero-stat-num">n8n</div>
-        <div class="hero-stat-label">Workflows in production</div>
-      </div>
-      <div>
-        <div class="hero-stat-num" id="rotatingText" style="font-size:clamp(0.9rem,2vw,1.1rem);font-family:var(--serif);font-style:italic;transition:opacity 0.4s,transform 0.4s;">Routine life and longevity</div>
-        <div class="hero-stat-label">Current focus</div>
+        <div class="hero-stat-num">03</div>
+        <div class="hero-stat-label">Automation pipelines live</div>
       </div>
     </div>
   </section>
@@ -76,7 +85,7 @@
     <div class="marquee-track" id="marqueeTrack"></div>
   </div>
 
-  <!-- ── ABOUT / ETYMOLOGY ──────────────────────────────── -->
+  <!-- ── ABOUT ──────────────────────────────────────────── -->
   <section class="section" id="about">
     <div class="section-eyebrow">
       <span class="section-eyebrow-num">01</span>
@@ -84,25 +93,43 @@
       <span class="section-eyebrow-label">About</span>
     </div>
     <h2 class="section-heading">
-The one who sets
-the standard at dawn.</h2>
+Not a studio —
+just me.</h2>
 
-    <div class="etymology">
-      <div class="etymology-item">
-        <span class="etymology-char">변</span>
-        <span class="etymology-meaning">Transform — change</span>
+    <div class="about-body">
+      <div class="about-bio">
+        <p>
+          I'm Kyuwook. I manage teams and coordinate across institutional
+          cultures in Daegu. Outside of that, I build things: automation
+          workflows, app concepts, and content that pushes back against
+          mindless scrolling.
+        </p>
+        <p>
+          Currently developing <em>CoverMe</em> — a civic tech platform
+          for emergency guidance — and <em>운동기구 지도</em>, a community
+          fitness map for Korea.
+        </p>
+        <p>Preparing for what comes after.</p>
       </div>
-      <div class="etymology-item">
-        <span class="etymology-char">旭</span>
-        <span class="etymology-meaning">Rising morning sun</span>
+
+      <div class="etymology">
+        <div class="etymology-item">
+          <span class="etymology-char">변</span>
+          <span class="etymology-meaning">Transform — change</span>
+        </div>
+        <div class="etymology-item">
+          <span class="etymology-char">규</span>
+          <span class="etymology-meaning">Compass — direction</span>
+        </div>
+        <div class="etymology-item">
+          <span class="etymology-char">욱</span>
+          <span class="etymology-meaning">Rising morning sun</span>
+        </div>
+        <p class="etymology-conclusion">
+          변 (transform) + 규 (compass) + 욱 (rising sun)<br/>
+          → "The one who orients at dawn"
+        </p>
       </div>
-      <div class="etymology-item">
-        <span class="etymology-char">Q</span>
-        <span class="etymology-meaning">Quality over quantity</span>
-      </div>
-      <p class="etymology-conclusion">
-        변 (transform) + 旭 (rising sun) — building systems before the world wakes up.
-      </p>
     </div>
   </section>
 
@@ -124,13 +151,14 @@ Key Projects</h2>
         <div class="project-card-num">01.</div>
         <div class="project-card-name">CoverMe<br/><span style="font-size:0.75em;opacity:0.5;font-style:italic;">커버미</span></div>
         <div class="project-card-desc">
-          AI civilian emergency evacuation guidance platform.
-          B2G and B2B markets, backed by academic research.
+          AI-based guidance platform for civilian emergency situations.
+          Targeting institutional and enterprise markets.
         </div>
         <div class="project-card-tags">
           <span class="project-tag">AI</span>
-          <span class="project-tag">Civil Defense</span>
+          <span class="project-tag">Civic Tech</span>
           <span class="project-tag">B2G</span>
+          <span class="project-tag">Startup</span>
         </div>
         <div class="project-card-arrow">↗</div>
       </div>
@@ -139,8 +167,8 @@ Key Projects</h2>
         <div class="project-card-num">02.</div>
         <div class="project-card-name">운동기구 지도</div>
         <div class="project-card-desc">
-          Crowdsourced public outdoor exercise equipment map.
-          Full roadmap and business plan complete.
+          Crowdsourced map of public outdoor fitness infrastructure in Korea.
+          Full roadmap and go-to-market plan complete.
         </div>
         <div class="project-card-tags">
           <span class="project-tag">React Native</span>
@@ -154,13 +182,14 @@ Key Projects</h2>
         <div class="project-card-num">03.</div>
         <div class="project-card-name">n8n Automation System</div>
         <div class="project-card-desc">
-          Mirae Asset reports → KakaoTalk.
-          Telegram-to-KakaoTalk news pipelines.
+          Automated investment report pipeline to KakaoTalk.
+          Multi-source news delivery via webhook workflows.
         </div>
         <div class="project-card-tags">
           <span class="project-tag">n8n</span>
           <span class="project-tag">Webhook</span>
           <span class="project-tag">KakaoTalk API</span>
+          <span class="project-tag">Automation</span>
         </div>
         <div class="project-card-arrow">↗</div>
       </div>
@@ -169,13 +198,12 @@ Key Projects</h2>
         <div class="project-card-num">04.</div>
         <div class="project-card-name">DISPLINE</div>
         <div class="project-card-desc">
-          YouTube Shorts critiquing algorithmic consumption.
-          "Digital resistance" content brand.
+          YouTube Shorts brand critiquing algorithmic consumption culture.
         </div>
         <div class="project-card-tags">
           <span class="project-tag">Content</span>
           <span class="project-tag">YouTube</span>
-          <span class="project-tag">Brand</span>
+          <span class="project-tag">Digital Resistance</span>
         </div>
         <div class="project-card-arrow">↗</div>
       </div>
@@ -200,12 +228,13 @@ Experience</h2>
       <div class="timeline-item">
         <div class="timeline-year">2024 – Present</div>
         <div>
-          <div class="timeline-role">KATUSA Support Officer</div>
-          <div class="timeline-org">USAG-Daegu</div>
+          <div class="timeline-role">People &amp; Operations Manager</div>
+          <div class="timeline-org">Daegu, KR</div>
           <ul class="timeline-details">
-            <li>Managing 26 soldiers across 3 units.</li>
-            <li>U.S.–ROK cross-cultural coordination.</li>
-            <li>Administrative and ceremonial documentation.</li>
+            <li>Leading a team across multiple organizational units.</li>
+            <li>Bridging communication between two distinct institutional cultures.</li>
+            <li>Producing bilingual administrative and operational documentation.</li>
+            <li>Planning and executing team programs and formal ceremonies.</li>
           </ul>
         </div>
       </div>
@@ -213,12 +242,24 @@ Experience</h2>
       <div class="timeline-item">
         <div class="timeline-year">2024 – Present</div>
         <div>
-          <div class="timeline-role">Self-directed Automation &amp; Product Dev</div>
+          <div class="timeline-role">Automation &amp; Product Builder</div>
           <div class="timeline-org">Independent</div>
           <ul class="timeline-details">
-            <li>n8n workflow deployment.</li>
-            <li>Two startup concepts with market research.</li>
-            <li>iOS Shortcuts for military automation.</li>
+            <li>Deployed n8n workflows connecting financial data feeds to messaging platforms.</li>
+            <li>Developing two startup concepts with market research, user research, and full business plans.</li>
+            <li>Built iOS Shortcuts automating day-to-day administrative workflows.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2024 – Present</div>
+        <div>
+          <div class="timeline-role">Content Creator</div>
+          <div class="timeline-org">DISPLINE · YouTube</div>
+          <ul class="timeline-details">
+            <li>Building a digital brand around intentional technology consumption.</li>
+            <li>Producing short-form video content on automation, systems thinking, and digital culture.</li>
           </ul>
         </div>
       </div>
@@ -242,7 +283,7 @@ Writing</h2>
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="automation">Automation</button>
       <button class="filter-btn" data-filter="startup">Startup</button>
-      <button class="filter-btn" data-filter="military">Military</button>
+      <button class="filter-btn" data-filter="leadership">Leadership</button>
       <button class="filter-btn" data-filter="content">Content</button>
     </div>
 
@@ -254,7 +295,7 @@ Writing</h2>
             <span class="writing-item-tag">Automation</span>
             <span class="writing-item-date">2025</span>
           </div>
-          <div class="writing-item-title">왜 나는 군에서 자동화를 시작했는가</div>
+          <div class="writing-item-title">왜 나는 자동화를 시작했는가</div>
         </div>
         <div class="writing-item-arrow">↗</div>
       </div>
@@ -265,7 +306,7 @@ Writing</h2>
             <span class="writing-item-tag">Startup</span>
             <span class="writing-item-date">2025</span>
           </div>
-          <div class="writing-item-title">CoverMe: 민간 대피 앱을 만들기로 한 이유</div>
+          <div class="writing-item-title">CoverMe: 민간 안전 앱을 만들기로 한 이유</div>
         </div>
         <div class="writing-item-arrow">↗</div>
       </div>
@@ -277,6 +318,28 @@ Writing</h2>
             <span class="writing-item-date">2025</span>
           </div>
           <div class="writing-item-title">DISPLINE: 알고리즘에 저항하는 콘텐츠 실험</div>
+        </div>
+        <div class="writing-item-arrow">↗</div>
+      </div>
+
+      <div class="writing-item" data-category="automation">
+        <div>
+          <div class="writing-item-meta">
+            <span class="writing-item-tag">Automation</span>
+            <span class="writing-item-date">2025</span>
+          </div>
+          <div class="writing-item-title">n8n으로 만드는 개인 정보 파이프라인</div>
+        </div>
+        <div class="writing-item-arrow">↗</div>
+      </div>
+
+      <div class="writing-item" data-category="leadership">
+        <div>
+          <div class="writing-item-meta">
+            <span class="writing-item-tag">Leadership</span>
+            <span class="writing-item-date">2025</span>
+          </div>
+          <div class="writing-item-title">조직을 운영하며 배운 시스템 사고</div>
         </div>
         <div class="writing-item-arrow">↗</div>
       </div>
@@ -301,8 +364,9 @@ Connect.</div>
       </div>
       <div>
         <p class="contact-note">
-          "Building something interesting? I'm open to conversations
-          about automation, civic tech, and post-military entrepreneurship."
+          "Building something interesting?
+          Open to conversations about automation, civic tech,
+          and building products from scratch."
         </p>
         <div class="contact-links">
           <a href="mailto:hello@bkw.kr">Email</a>
@@ -316,8 +380,8 @@ Connect.</div>
   <!-- ── FOOTER ─────────────────────────────────────────── -->
   <footer>
     <div class="footer-logo">BKW</div>
-    <div class="footer-loc">Republic of Korea</div>
-    <div class="footer-copy">© 2025 Q work</div>
+    <div class="footer-loc">Daegu, Republic of Korea</div>
+    <div class="footer-copy">© 2025 BKW</div>
   </footer>
 
   <script src="main.js"></script>
