@@ -157,6 +157,27 @@ nav.visible {
   justify-content: flex-end;
   padding: clamp(6rem, 12vw, 10rem) clamp(1.5rem, 5vw, 4rem) clamp(4rem, 7vw, 6rem);
   position: relative;
+  background-image: url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=85');
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+}
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 8, 10, 0.55) 0%,
+    rgba(5, 8, 10, 0.35) 40%,
+    rgba(5, 8, 10, 0.75) 75%,
+    rgba(10, 10, 10, 0.97) 100%
+  );
+  z-index: 0;
+}
+#hero > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-index {
