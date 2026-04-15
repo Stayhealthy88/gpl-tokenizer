@@ -1,0 +1,49 @@
+<svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" width="800" height="280">
+  <!-- White background -->
+  <rect width="800" height="280" fill="white"/>
+
+  <!-- Title -->
+  <text x="400" y="30" font-size="22" font-weight="bold" text-anchor="middle" font-family="sans-serif" fill="#1f2937">SVG Line Drawing — Stroke Animation Stages</text>
+
+  <!-- Define the path (anime.js example letter shape) -->
+  <defs>
+    <path id="drawPath" d="M59 90V56.136C58.66 46.48 51.225 39 42 39c-9.389 0-17 7.611-17 17s7.611 17 17 17h8.5v17H42C23.222 90 8 74.778 8 56s15.222-34 34-34c18.61 0 33.433 14.994 34 33.875V90H59z"/>
+  </defs>
+
+  <!-- Stage 1: draw='0 0' (nothing) -->
+  <g transform="translate(80, 80)">
+    <use href="#drawPath" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+         stroke-dasharray="500" stroke-dashoffset="500"/>
+    <text x="35" y="130" font-size="11" text-anchor="middle" font-family="sans-serif" fill="#666">draw: 0%</text>
+  </g>
+
+  <!-- Stage 2: draw='0.33' (one third) -->
+  <g transform="translate(240, 80)">
+    <use href="#drawPath" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+         stroke-dasharray="500" stroke-dashoffset="335"/>
+    <text x="35" y="130" font-size="11" text-anchor="middle" font-family="sans-serif" fill="#666">draw: 33%</text>
+  </g>
+
+  <!-- Stage 3: draw='0.66' (two thirds) -->
+  <g transform="translate(400, 80)">
+    <use href="#drawPath" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+         stroke-dasharray="500" stroke-dashoffset="170"/>
+    <text x="35" y="130" font-size="11" text-anchor="middle" font-family="sans-serif" fill="#666">draw: 66%</text>
+  </g>
+
+  <!-- Stage 4: draw='1' (fully drawn) -->
+  <g transform="translate(560, 80)">
+    <use href="#drawPath" stroke="#2563eb" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+         stroke-dasharray="500" stroke-dashoffset="0"/>
+    <text x="35" y="130" font-size="11" text-anchor="middle" font-family="sans-serif" fill="#666">draw: 100%</text>
+  </g>
+
+  <!-- Token annotation at bottom -->
+  <rect x="60" y="220" width="680" height="45" fill="#f3f4f6" rx="4"/>
+  <text x="70" y="242" font-size="12" font-family="sans-serif" fill="#1f2937">
+    <tspan font-weight="bold">Token Encoding:</tspan> [CUBIC][coords...][G1][κ2] — each curve segment = 1 compound token
+  </text>
+  <text x="70" y="260" font-size="11" font-family="sans-serif" fill="#6b7280">
+    stroke-dasharray/offset simulates draw property animation for GPL path tokenization
+  </text>
+</svg>

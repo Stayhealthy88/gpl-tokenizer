@@ -128,6 +128,28 @@ GID (Geometric Information Density) — BPE 대비:
 | Triangle icon | 10 | **3.4×** |
 | Multi-path | 19 | **2.8×** |
 
+## Real-world SVG Examples
+
+실제 SVG 애니메이션 패턴(anime.js 참고)에 GPL 토큰화를 적용한 예시:
+
+### Shape Morphing
+
+<p align="center">
+  <img src="assets/example_morphing.svg" alt="SVG Shape Morphing — GPL Token Sequence" width="750"/>
+</p>
+
+### Line Drawing (Stroke Animation)
+
+<p align="center">
+  <img src="assets/example_line_drawing.svg" alt="SVG Line Drawing — Stroke Animation Stages" width="750"/>
+</p>
+
+### Motion Path (Trajectory Encoding)
+
+<p align="center">
+  <img src="assets/example_motion_path.svg" alt="SVG Motion Path — Geometric Trajectory Encoding" width="750"/>
+</p>
+
 ## Project Structure
 
 ```
