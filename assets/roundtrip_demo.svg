@@ -1,93 +1,81 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520">
-  <defs>
-    <style>
-      .header { font-size: 24px; font-weight: 600; fill: #1f2937; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .label { font-size: 14px; font-weight: 500; fill: #374151; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .sublabel { font-size: 12px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .container { fill: #f9fafb; stroke: #e5e7eb; stroke-width: 1.5; }
-      .column-header { font-size: 16px; font-weight: 600; fill: #111827; }
-    </style>
-  </defs>
-
-  <!-- Background -->
-  <rect width="800" height="520" fill="white"/>
+  <rect width="800" height="520" fill="white" rx="12"/>
 
   <!-- Header -->
-  <text x="400" y="35" class="header" text-anchor="middle">Round-trip Fidelity</text>
-  <text x="400" y="55" class="sublabel" text-anchor="middle">SVG → GPL Tokenize → Reconstruct → SVG</text>
+  <text x="400" y="32" text-anchor="middle" font-size="22" font-weight="600" fill="#1f2937" font-family="sans-serif">Round-trip Fidelity Test</text>
+  <text x="400" y="52" text-anchor="middle" font-size="11" fill="#6b7280" font-family="sans-serif">Original SVG  --  GPL Tokenize  --  Detokenize  --  Reconstructed SVG</text>
 
   <!-- Column headers -->
-  <text x="170" y="100" class="column-header" text-anchor="middle">Original SVG</text>
-  <text x="630" y="100" class="column-header" text-anchor="middle">Reconstructed SVG</text>
+  <rect x="40" y="68" width="310" height="26" rx="6" fill="#eff6ff"/>
+  <text x="195" y="86" text-anchor="middle" font-size="14" font-weight="600" fill="#1e40af" font-family="sans-serif">Original SVG</text>
 
-  <!-- Example 1: Cubic Bezier Curve -->
-  <!-- Original container -->
-  <rect x="40" y="120" width="260" height="110" rx="8" class="container"/>
-  <text x="170" y="145" class="label" text-anchor="middle">Cubic Bezier</text>
-  <!-- Curve visualization -->
-  <path d="M 80 190 C 110 160, 150 160, 200 190" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <circle cx="80" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
-  <circle cx="200" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
-  <!-- Token count -->
-  <text x="170" y="225" class="sublabel" text-anchor="middle">18 tokens</text>
+  <rect x="450" y="68" width="310" height="26" rx="6" fill="#f0fdf4"/>
+  <text x="605" y="86" text-anchor="middle" font-size="14" font-weight="600" fill="#166534" font-family="sans-serif">Reconstructed SVG</text>
 
-  <!-- Reconstructed container -->
-  <rect x="500" y="120" width="260" height="110" rx="8" class="container"/>
-  <text x="630" y="145" class="label" text-anchor="middle">Cubic Bezier</text>
-  <!-- Same curve -->
-  <path d="M 540 190 C 570 160, 610 160, 660 190" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <circle cx="540" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
-  <circle cx="660" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
-  <!-- Token count -->
-  <text x="630" y="225" class="sublabel" text-anchor="middle">6 tokens</text>
+  <!-- Arrow in center -->
+  <text x="400" y="86" text-anchor="middle" font-size="16" fill="#9ca3af" font-family="sans-serif">--&gt;</text>
 
-  <!-- Example 2: Triangle -->
-  <!-- Original container -->
-  <rect x="40" y="250" width="260" height="110" rx="8" class="container"/>
-  <text x="170" y="275" class="label" text-anchor="middle">Triangle</text>
-  <!-- Triangle -->
-  <polygon points="170,295 130,345 210,345" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="170" cy="295" r="2.5" fill="#dc2626" opacity="0.6"/>
-  <circle cx="130" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
-  <circle cx="210" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
-  <!-- Token count -->
-  <text x="170" y="370" class="sublabel" text-anchor="middle">21 tokens</text>
+  <!-- ===== Row 1: Cubic Bezier ===== -->
+  <rect x="40" y="105" width="310" height="120" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="195" y="125" text-anchor="middle" font-size="13" font-weight="500" fill="#374151" font-family="sans-serif">Cubic Bezier Curve</text>
+  <!-- Original curve -->
+  <path d="M 80 190 C 120 130, 170 130, 210 190 S 290 240, 310 190" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="80" cy="190" r="3" fill="#2563eb"/>
+  <circle cx="310" cy="190" r="3" fill="#2563eb"/>
+  <circle cx="120" cy="130" r="2" fill="#93c5fd"/>
+  <circle cx="170" cy="130" r="2" fill="#93c5fd"/>
+  <text x="195" y="218" text-anchor="middle" font-size="10" fill="#6b7280" font-family="monospace">M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80</text>
 
-  <!-- Reconstructed container -->
-  <rect x="500" y="250" width="260" height="110" rx="8" class="container"/>
-  <text x="630" y="275" class="label" text-anchor="middle">Triangle</text>
-  <!-- Same triangle -->
-  <polygon points="630,295 590,345 670,345" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="630" cy="295" r="2.5" fill="#dc2626" opacity="0.6"/>
-  <circle cx="590" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
-  <circle cx="670" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
-  <!-- Token count -->
-  <text x="630" y="370" class="sublabel" text-anchor="middle">4 tokens</text>
+  <!-- Reconstructed -->
+  <rect x="450" y="105" width="310" height="120" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="605" y="125" text-anchor="middle" font-size="13" font-weight="500" fill="#374151" font-family="sans-serif">Cubic Bezier Curve</text>
+  <path d="M 490 190 C 530 130, 580 130, 620 190 S 700 240, 720 190" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="490" cy="190" r="3" fill="#2563eb"/>
+  <circle cx="720" cy="190" r="3" fill="#2563eb"/>
+  <!-- Token badge -->
+  <rect x="560" y="204" width="90" height="18" rx="9" fill="#dbeafe"/>
+  <text x="605" y="217" text-anchor="middle" font-size="10" font-weight="600" fill="#1e40af" font-family="sans-serif">15 GPL tokens</text>
 
-  <!-- Example 3: Star Shape -->
-  <!-- Original container -->
-  <rect x="40" y="380" width="260" height="110" rx="8" class="container"/>
-  <text x="170" y="405" class="label" text-anchor="middle">Star Icon</text>
-  <!-- Star -->
-  <polygon points="170,405 176,425 197,425 180,438 186,458 170,445 154,458 160,438 143,425 164,425" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Token count -->
-  <text x="170" y="505" class="sublabel" text-anchor="middle">34 tokens</text>
+  <!-- Center arrow row 1 -->
+  <line x1="355" y1="165" x2="445" y2="165" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="440,162 448,165 440,168" fill="#9ca3af"/>
 
-  <!-- Reconstructed container -->
-  <rect x="500" y="380" width="260" height="110" rx="8" class="container"/>
-  <text x="630" y="405" class="label" text-anchor="middle">Star Icon</text>
-  <!-- Same star -->
-  <polygon points="630,405 636,425 657,425 640,438 646,458 630,445 614,458 620,438 603,425 624,425" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Token count -->
-  <text x="630" y="505" class="sublabel" text-anchor="middle">8 tokens</text>
+  <!-- ===== Row 2: Triangle ===== -->
+  <rect x="40" y="240" width="310" height="120" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="195" y="260" text-anchor="middle" font-size="13" font-weight="500" fill="#374151" font-family="sans-serif">Triangle</text>
+  <polygon points="195,275 255,340 135,340" fill="none" stroke="#dc2626" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="195" cy="275" r="3" fill="#dc2626"/>
+  <circle cx="255" cy="340" r="3" fill="#dc2626"/>
+  <circle cx="135" cy="340" r="3" fill="#dc2626"/>
+  <text x="195" y="355" text-anchor="middle" font-size="10" fill="#6b7280" font-family="monospace">M 150 30 L 270 250 L 30 250 Z</text>
 
-  <!-- Arrow between columns -->
-  <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#9ca3af"/>
-    </marker>
-  </defs>
-  <line x1="310" y1="175" x2="490" y2="175" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="4,4"/>
-  <line x1="310" y1="305" x2="490" y2="305" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="4,4"/>
-  <line x1="310" y1="435" x2="490" y2="435" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="4,4"/>
+  <rect x="450" y="240" width="310" height="120" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="605" y="260" text-anchor="middle" font-size="13" font-weight="500" fill="#374151" font-family="sans-serif">Triangle</text>
+  <polygon points="605,275 665,340 545,340" fill="none" stroke="#dc2626" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="605" cy="275" r="3" fill="#dc2626"/>
+  <circle cx="665" cy="340" r="3" fill="#dc2626"/>
+  <circle cx="545" cy="340" r="3" fill="#dc2626"/>
+  <rect x="560" y="342" width="90" height="18" rx="9" fill="#fef2f2"/>
+  <text x="605" y="355" text-anchor="middle" font-size="10" font-weight="600" fill="#991b1b" font-family="sans-serif">10 GPL tokens</text>
+
+  <line x1="355" y1="300" x2="445" y2="300" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="440,297 448,300 440,303" fill="#9ca3af"/>
+
+  <!-- ===== Row 3: Star ===== -->
+  <rect x="40" y="375" width="310" height="120" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="195" y="395" text-anchor="middle" font-size="13" font-weight="500" fill="#374151" font-family="sans-serif">Star Icon</text>
+  <polygon points="195,400 203,425 230,425 208,440 216,465 195,450 174,465 182,440 160,425 187,425" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="195" y="488" text-anchor="middle" font-size="10" fill="#6b7280" font-family="monospace">M 150 30 L 180 120 ... L 120 120 Z</text>
+
+  <rect x="450" y="375" width="310" height="120" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="605" y="395" text-anchor="middle" font-size="13" font-weight="500" fill="#374151" font-family="sans-serif">Star Icon</text>
+  <polygon points="605,400 613,425 640,425 618,440 626,465 605,450 584,465 592,440 570,425 597,425" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="560" y="477" width="90" height="18" rx="9" fill="#fff7ed"/>
+  <text x="605" y="490" text-anchor="middle" font-size="10" font-weight="600" fill="#9a3412" font-family="sans-serif">31 GPL tokens</text>
+
+  <line x1="355" y1="435" x2="445" y2="435" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="440,432 448,435 440,438" fill="#9ca3af"/>
+
+  <!-- Bottom note -->
+  <text x="400" y="512" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="sans-serif">Quantization error within ARCS cell diagonal tolerance | 24/24 round-trip tests passing</text>
 </svg>

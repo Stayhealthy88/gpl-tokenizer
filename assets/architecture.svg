@@ -1,130 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" width="900" height="220">
-  <defs>
-    <style>
-      .header { font-size: 20px; font-weight: 600; fill: #1f2937; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .box-label { font-size: 12px; font-weight: 500; fill: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-anchor: middle; }
-      .sublabel { font-size: 10px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    </style>
-    <!-- Gradients for color progression -->
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.95" />
-      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.95" />
-    </linearGradient>
-    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:0.95" />
-      <stop offset="100%" style="stop-color:#0369a1;stop-opacity:0.95" />
-    </linearGradient>
-    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.95" />
-      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:0.95" />
-    </linearGradient>
-    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.95" />
-      <stop offset="100%" style="stop-color:#059669;stop-opacity:0.95" />
-    </linearGradient>
-    <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:0.95" />
-      <stop offset="100%" style="stop-color:#0d9488;stop-opacity:0.95" />
-    </linearGradient>
-    <!-- Arrow marker -->
-    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <polygon points="0 0, 10 3, 0 6" fill="#9ca3af"/>
-    </marker>
-  </defs>
-
-  <!-- Background -->
-  <rect width="900" height="220" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 200" width="900" height="200">
+  <rect width="900" height="200" fill="white" rx="12"/>
 
   <!-- Title -->
-  <text x="450" y="30" class="header" text-anchor="middle">GPL Tokenizer Architecture</text>
+  <text x="450" y="28" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937" font-family="sans-serif">GPL Tokenizer Pipeline</text>
 
-  <!-- Pipeline boxes -->
+  <!-- 1. SVG Text -->
+  <rect x="10" y="55" width="80" height="55" rx="8" fill="#3b82f6"/>
+  <text x="50" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">SVG</text>
+  <text x="50" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Parser</text>
+  <text x="50" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">XML parse</text>
 
-  <!-- 1. SVG Parser -->
-  <rect x="10" y="60" width="85" height="70" rx="8" fill="url(#grad1)"/>
-  <text x="52.5" y="97" class="box-label">SVG</text>
-  <text x="52.5" y="112" class="box-label">Parser</text>
-
-  <!-- Arrow 1 -->
-  <line x1="95" y1="95" x2="120" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <!-- Arrow -->
+  <polygon points="95,82 105,78 105,86" fill="#9ca3af"/>
 
   <!-- 2. Path Parser -->
-  <rect x="120" y="60" width="85" height="70" rx="8" fill="url(#grad2)"/>
-  <text x="162.5" y="97" class="box-label">Path</text>
-  <text x="162.5" y="112" class="box-label">Parser</text>
+  <rect x="110" y="55" width="80" height="55" rx="8" fill="#2563eb"/>
+  <text x="150" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Path</text>
+  <text x="150" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Parser</text>
+  <text x="150" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">d attribute</text>
 
-  <!-- Arrow 2 -->
-  <line x1="205" y1="95" x2="230" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <polygon points="195,82 205,78 205,86" fill="#9ca3af"/>
 
-  <!-- 3. Curvature Analyzer -->
-  <rect x="230" y="60" width="90" height="70" rx="8" fill="url(#grad2)"/>
-  <text x="275" y="97" class="box-label">Curvature</text>
-  <text x="275" y="112" class="box-label">Analyzer</text>
+  <!-- 3. Curvature -->
+  <rect x="210" y="55" width="88" height="55" rx="8" fill="#0ea5e9"/>
+  <text x="254" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Curvature</text>
+  <text x="254" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Analyzer</text>
+  <text x="254" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">k, arc len</text>
 
-  <!-- Arrow 3 -->
-  <line x1="320" y1="95" x2="345" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <polygon points="303,82 313,78 313,86" fill="#9ca3af"/>
 
-  <!-- 4. Continuity Analyzer -->
-  <rect x="345" y="60" width="90" height="70" rx="8" fill="url(#grad3)"/>
-  <text x="390" y="97" class="box-label">Continuity</text>
-  <text x="390" y="112" class="box-label">Analyzer</text>
+  <!-- 4. Continuity -->
+  <rect x="318" y="55" width="88" height="55" rx="8" fill="#0891b2"/>
+  <text x="362" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Continuity</text>
+  <text x="362" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Analyzer</text>
+  <text x="362" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">G0/G1/G2</text>
 
-  <!-- Arrow 4 -->
-  <line x1="435" y1="95" x2="460" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <polygon points="411,82 421,78 421,86" fill="#9ca3af"/>
 
   <!-- 5. ARCS -->
-  <rect x="460" y="60" width="75" height="70" rx="8" fill="url(#grad3)"/>
-  <text x="497.5" y="97" class="box-label">ARCS</text>
-  <text x="497.5" y="112" class="box-label">Solver</text>
+  <rect x="426" y="55" width="70" height="55" rx="8" fill="#14b8a6"/>
+  <text x="461" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">ARCS</text>
+  <text x="461" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Solver</text>
+  <text x="461" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">Quadtree</text>
 
-  <!-- Arrow 5 -->
-  <line x1="535" y1="95" x2="560" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <polygon points="501,82 511,78 511,86" fill="#9ca3af"/>
 
   <!-- 6. Primitive Tokenizer -->
-  <rect x="560" y="60" width="90" height="70" rx="8" fill="url(#grad4)"/>
-  <text x="605" y="97" class="box-label">Primitive</text>
-  <text x="605" y="112" class="box-label">Tokenizer</text>
+  <rect x="516" y="55" width="88" height="55" rx="8" fill="#10b981"/>
+  <text x="560" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Primitive</text>
+  <text x="560" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Tokenizer</text>
+  <text x="560" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">Encode</text>
 
-  <!-- Arrow 6 -->
-  <line x1="650" y1="95" x2="675" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <polygon points="609,82 619,78 619,86" fill="#9ca3af"/>
 
-  <!-- 7. Token IDs -->
-  <rect x="675" y="60" width="75" height="70" rx="8" fill="url(#grad4)"/>
-  <text x="712.5" y="100" class="box-label">Token</text>
-  <text x="712.5" y="115" class="box-label">IDs</text>
+  <!-- 7. Token IDs (highlighted) -->
+  <rect x="624" y="50" width="75" height="65" rx="10" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="661" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">Token</text>
+  <text x="661" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">IDs</text>
+  <text x="661" y="130" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">5,561 vocab</text>
 
-  <!-- Arrow 7 -->
-  <line x1="750" y1="95" x2="775" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <polygon points="704,82 714,78 714,86" fill="#9ca3af"/>
 
   <!-- 8. Detokenizer -->
-  <rect x="775" y="60" width="75" height="70" rx="8" fill="url(#grad5)"/>
-  <text x="812.5" y="100" class="box-label">De-</text>
-  <text x="812.5" y="115" class="box-label">tokenizer</text>
+  <rect x="719" y="55" width="85" height="55" rx="8" fill="#059669"/>
+  <text x="761" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">De-</text>
+  <text x="761" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">tokenizer</text>
+  <text x="761" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">Decode</text>
 
-  <!-- Arrow 8 -->
-  <line x1="850" y1="95" x2="875" y2="95" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <polygon points="809,82 819,78 819,86" fill="#9ca3af"/>
 
-  <!-- Final: Valid SVG -->
-  <rect x="875" y="60" width="20" height="70" rx="8" fill="#22c55e" opacity="0.9"/>
-  <text x="885" y="107" class="box-label" font-size="20">✓</text>
+  <!-- 9. Valid SVG -->
+  <rect x="824" y="55" width="65" height="55" rx="8" fill="#22c55e"/>
+  <text x="856" y="80" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">Valid</text>
+  <text x="856" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="sans-serif">SVG</text>
+  <text x="856" y="125" text-anchor="middle" font-size="9" fill="#6b7280" font-family="sans-serif">Round-trip</text>
 
-  <!-- Bottom labels for stages -->
-  <g class="sublabel" font-size="9">
-    <text x="52.5" y="150" text-anchor="middle">Parse</text>
-    <text x="162.5" y="150" text-anchor="middle">Decompose</text>
-    <text x="275" y="150" text-anchor="middle">Analyze</text>
-    <text x="390" y="150" text-anchor="middle">Analyze</text>
-    <text x="497.5" y="150" text-anchor="middle">Solve</text>
-    <text x="605" y="150" text-anchor="middle">Encode</text>
-    <text x="712.5" y="150" text-anchor="middle">Output</text>
-    <text x="812.5" y="150" text-anchor="middle">Decode</text>
-  </g>
+  <!-- Bottom labels -->
+  <rect x="10" y="150" width="493" height="22" rx="4" fill="#eff6ff"/>
+  <text x="256" y="165" text-anchor="middle" font-size="10" font-weight="500" fill="#1e40af" font-family="sans-serif">Tokenization (SVG to Token IDs)</text>
 
-  <!-- Data flow description -->
-  <text x="450" y="190" class="sublabel" text-anchor="middle" font-size="11" font-weight="500" fill="#374151">
-    Tokenization (left) → Reconstruction (right)
-  </text>
-  <text x="450" y="205" class="sublabel" text-anchor="middle" font-size="10">
-    Input: SVG path commands | Output: Compact token sequence | Lossless round-trip
-  </text>
+  <rect x="624" y="150" width="265" height="22" rx="4" fill="#f0fdf4"/>
+  <text x="756" y="165" text-anchor="middle" font-size="10" font-weight="500" fill="#166534" font-family="sans-serif">Reconstruction (Token IDs to SVG)</text>
+
+  <!-- Bottom note -->
+  <text x="450" y="190" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="sans-serif">Lossless round-trip: Original SVG = Reconstructed SVG (within quantization tolerance)</text>
 </svg>

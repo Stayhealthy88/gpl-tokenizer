@@ -1,99 +1,110 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
-  <defs>
-    <style>
-      .header { font-size: 22px; font-weight: 600; fill: #1f2937; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .label { font-size: 13px; font-weight: 500; fill: #374151; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .sublabel { font-size: 11px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .token-label { font-size: 10px; font-weight: 500; fill: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .warning { fill: #dc2626; }
-      .success { fill: #16a34a; }
-    </style>
-  </defs>
-
-  <!-- Background -->
-  <rect width="800" height="420" fill="white"/>
+  <rect width="800" height="420" fill="white" rx="12"/>
 
   <!-- Header -->
-  <text x="400" y="35" class="header" text-anchor="middle">Geometry-Aware Tokenization vs BPE</text>
-  <text x="400" y="55" class="sublabel" text-anchor="middle">How GPL preserves structural information</text>
+  <text x="400" y="35" text-anchor="middle" font-size="22" font-weight="600" fill="#1f2937" font-family="sans-serif">Geometry-Aware Tokenization vs BPE</text>
+  <text x="400" y="55" text-anchor="middle" font-size="11" fill="#6b7280" font-family="sans-serif">How GPL preserves structural information that BPE destroys</text>
 
-  <!-- Top section: Original curve -->
-  <text x="400" y="90" class="label" text-anchor="middle" font-size="14">Original Path: M 20 50 C 40 10, 65 10, 95 80</text>
-  <path d="M 80 180 C 100 140, 125 140, 155 220" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- Start point -->
-  <circle cx="80" cy="180" r="3" fill="#2563eb"/>
-  <text x="75" y="170" class="sublabel">start</text>
-  <!-- End point -->
-  <circle cx="155" cy="220" r="3" fill="#2563eb"/>
-  <text x="160" y="225" class="sublabel">end</text>
-  <!-- Control points -->
-  <circle cx="100" cy="140" r="2.5" fill="#2563eb" opacity="0.5"/>
-  <circle cx="125" cy="140" r="2.5" fill="#2563eb" opacity="0.5"/>
+  <!-- Divider -->
+  <line x1="400" y1="75" x2="400" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
 
-  <!-- BPE section (left) -->
-  <g>
-    <text x="200" y="280" class="label" text-anchor="middle" font-weight="600">BPE Tokenization</text>
-
-    <!-- Token boxes -->
-    <rect x="75" y="300" width="30" height="28" rx="4" class="warning" opacity="0.8"/>
-    <text x="90" y="321" class="token-label" text-anchor="middle" font-size="9">C</text>
-
-    <rect x="110" y="300" width="30" height="28" rx="4" class="warning" opacity="0.7"/>
-    <text x="125" y="321" class="token-label" text-anchor="middle" font-size="8">4</text>
-
-    <rect x="145" y="300" width="30" height="28" rx="4" class="warning" opacity="0.7"/>
-    <text x="160" y="321" class="token-label" text-anchor="middle" font-size="8">0</text>
-
-    <rect x="180" y="300" width="30" height="28" rx="4" class="warning" opacity="0.7"/>
-    <text x="195" y="321" class="token-label" text-anchor="middle" font-size="8">1</text>
-
-    <rect x="215" y="300" width="30" height="28" rx="4" class="warning" opacity="0.7"/>
-    <text x="230" y="321" class="token-label" text-anchor="middle" font-size="8">0</text>
-
-    <rect x="250" y="300" width="35" height="28" rx="4" class="warning" opacity="0.6"/>
-    <text x="267" y="321" class="token-label" text-anchor="middle" font-size="8">...</text>
-
-    <!-- Result label -->
-    <text x="200" y="355" class="sublabel" text-anchor="middle" font-weight="500" class="warning">15+ fragmented tokens</text>
-    <text x="200" y="372" class="sublabel" text-anchor="middle">Geometry destroyed</text>
+  <!-- Original curve (center top) -->
+  <text x="400" y="88" text-anchor="middle" font-size="13" font-weight="500" fill="#374151" font-family="monospace">M 20 50 C 40 10, 65 10, 95 80</text>
+  <g transform="translate(310,95)">
+    <path d="M 0 60 C 30 0, 80 0, 180 60" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="0" cy="60" r="4" fill="#2563eb"/>
+    <circle cx="30" cy="0" r="3" fill="#93c5fd" stroke="#2563eb" stroke-width="1"/>
+    <line x1="0" y1="60" x2="30" y2="0" stroke="#93c5fd" stroke-width="1" stroke-dasharray="3,2"/>
+    <circle cx="80" cy="0" r="3" fill="#93c5fd" stroke="#2563eb" stroke-width="1"/>
+    <line x1="180" y1="60" x2="80" y2="0" stroke="#93c5fd" stroke-width="1" stroke-dasharray="3,2"/>
+    <circle cx="180" cy="60" r="4" fill="#2563eb"/>
   </g>
 
-  <!-- GPL section (right) -->
-  <g>
-    <text x="600" y="280" class="label" text-anchor="middle" font-weight="600">GPL Tokenization</text>
+  <!-- LEFT: BPE Section -->
+  <text x="200" y="195" text-anchor="middle" font-size="16" font-weight="600" fill="#dc2626" font-family="sans-serif">BPE Tokenization</text>
 
-    <!-- Token boxes with semantic meaning -->
-    <rect x="480" y="300" width="50" height="28" rx="4" fill="#059669" opacity="0.85"/>
-    <text x="505" y="321" class="token-label" text-anchor="middle" font-size="9">CUBIC</text>
+  <!-- BPE token boxes - fragmented -->
+  <rect x="45" y="210" width="32" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="61" y="230" text-anchor="middle" font-size="11" font-weight="600" fill="#991b1b" font-family="monospace">C</text>
 
-    <rect x="535" y="300" width="38" height="28" rx="4" fill="#0891b2" opacity="0.85"/>
-    <text x="554" y="321" class="token-label" text-anchor="middle" font-size="8">[q4:5]</text>
+  <rect x="82" y="210" width="28" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="96" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">_4</text>
 
-    <rect x="578" y="300" width="38" height="28" rx="4" fill="#0891b2" opacity="0.85"/>
-    <text x="597" y="321" class="token-label" text-anchor="middle" font-size="8">[q4:1]</text>
+  <rect x="115" y="210" width="26" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="128" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">0</text>
 
-    <rect x="621" y="300" width="38" height="28" rx="4" fill="#0891b2" opacity="0.85"/>
-    <text x="640" y="321" class="token-label" text-anchor="middle" font-size="8">[q4:8]</text>
+  <rect x="146" y="210" width="28" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="160" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">_1</text>
 
-    <rect x="664" y="300" width="38" height="28" rx="4" fill="#0891b2" opacity="0.85"/>
-    <text x="683" y="321" class="token-label" text-anchor="middle" font-size="8">[κ3]</text>
+  <rect x="179" y="210" width="26" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="192" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">0</text>
 
-    <rect x="707" y="300" width="38" height="28" rx="4" fill="#059669" opacity="0.75"/>
-    <text x="726" y="321" class="token-label" text-anchor="middle" font-size="9">END</text>
+  <rect x="210" y="210" width="22" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="221" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">,</text>
 
-    <!-- Result label -->
-    <text x="600" y="355" class="sublabel" text-anchor="middle" font-weight="500" class="success">6 semantic tokens</text>
-    <text x="600" y="372" class="sublabel" text-anchor="middle">Geometry preserved</text>
-  </g>
+  <rect x="237" y="210" width="28" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="251" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">_6</text>
 
-  <!-- Bottom comparison boxes -->
-  <g>
-    <!-- BPE issue box -->
-    <rect x="50" y="390" width="300" height="25" rx="6" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
-    <text x="200" y="408" class="sublabel" text-anchor="middle" font-weight="500" fill="#991b1b">❌ Lost structure: no understanding of curve control</text>
+  <rect x="270" y="210" width="26" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="283" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">5</text>
 
-    <!-- GPL benefit box -->
-    <rect x="450" y="390" width="300" height="25" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
-    <text x="600" y="408" class="sublabel" text-anchor="middle" font-weight="500" fill="#166534">✓ Preserved structure: quantized coordinates + curvature</text>
-  </g>
+  <rect x="301" y="210" width="36" height="30" rx="5" fill="#fecaca" stroke="#fca5a5" stroke-width="1"/>
+  <text x="319" y="230" text-anchor="middle" font-size="10" fill="#991b1b" font-family="monospace">...</text>
+
+  <!-- BPE count -->
+  <rect x="60" y="260" width="280" height="36" rx="8" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="200" y="282" text-anchor="middle" font-size="14" font-weight="700" fill="#991b1b" font-family="sans-serif">15+ tokens</text>
+
+  <!-- BPE problem description -->
+  <text x="200" y="318" text-anchor="middle" font-size="12" font-weight="500" fill="#991b1b" font-family="sans-serif">Geometric structure destroyed</text>
+  <text x="200" y="336" text-anchor="middle" font-size="10" fill="#6b7280" font-family="sans-serif">Digits split across tokens, no spatial meaning</text>
+  <text x="200" y="352" text-anchor="middle" font-size="10" fill="#6b7280" font-family="sans-serif">Coordinates become random subword fragments</text>
+
+  <!-- RIGHT: GPL Section -->
+  <text x="600" y="195" text-anchor="middle" font-size="16" font-weight="600" fill="#16a34a" font-family="sans-serif">GPL Tokenization</text>
+
+  <!-- GPL token boxes - semantic -->
+  <rect x="425" y="210" width="60" height="30" rx="5" fill="#059669"/>
+  <text x="455" y="230" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="monospace">CUBIC</text>
+
+  <rect x="490" y="210" width="52" height="30" rx="5" fill="#0891b2"/>
+  <text x="516" y="230" text-anchor="middle" font-size="10" font-weight="500" fill="white" font-family="monospace">q4:5,1</text>
+
+  <rect x="547" y="210" width="52" height="30" rx="5" fill="#0891b2"/>
+  <text x="573" y="230" text-anchor="middle" font-size="10" font-weight="500" fill="white" font-family="monospace">q4:8,1</text>
+
+  <rect x="604" y="210" width="60" height="30" rx="5" fill="#0891b2"/>
+  <text x="634" y="230" text-anchor="middle" font-size="10" font-weight="500" fill="white" font-family="monospace">q4:12,10</text>
+
+  <rect x="669" y="210" width="34" height="30" rx="5" fill="#7c3aed"/>
+  <text x="686" y="230" text-anchor="middle" font-size="10" font-weight="600" fill="white" font-family="monospace">G1</text>
+
+  <rect x="708" y="210" width="36" height="30" rx="5" fill="#c026d3"/>
+  <text x="726" y="230" text-anchor="middle" font-size="10" font-weight="600" fill="white" font-family="monospace">k3</text>
+
+  <!-- GPL count -->
+  <rect x="460" y="260" width="280" height="36" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="600" y="282" text-anchor="middle" font-size="14" font-weight="700" fill="#166534" font-family="sans-serif">6 semantic tokens</text>
+
+  <!-- GPL benefit description -->
+  <text x="600" y="318" text-anchor="middle" font-size="12" font-weight="500" fill="#166534" font-family="sans-serif">Geometric structure preserved</text>
+  <text x="600" y="336" text-anchor="middle" font-size="10" fill="#6b7280" font-family="sans-serif">Command + quantized coordinates + continuity + curvature</text>
+  <text x="600" y="352" text-anchor="middle" font-size="10" fill="#6b7280" font-family="sans-serif">Each token carries spatial/geometric meaning</text>
+
+  <!-- Bottom legend -->
+  <rect x="425" y="248" width="8" height="8" rx="2" fill="#059669"/>
+  <text x="437" y="256" font-size="8" fill="#6b7280" font-family="sans-serif">Command</text>
+  <rect x="485" y="248" width="8" height="8" rx="2" fill="#0891b2"/>
+  <text x="497" y="256" font-size="8" fill="#6b7280" font-family="sans-serif">Coord</text>
+  <rect x="530" y="248" width="8" height="8" rx="2" fill="#7c3aed"/>
+  <text x="542" y="256" font-size="8" fill="#6b7280" font-family="sans-serif">Continuity</text>
+  <rect x="595" y="248" width="8" height="8" rx="2" fill="#c026d3"/>
+  <text x="607" y="256" font-size="8" fill="#6b7280" font-family="sans-serif">Curvature</text>
+
+  <!-- Bottom comparison -->
+  <rect x="50" y="375" width="300" height="30" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="200" y="395" text-anchor="middle" font-size="11" font-weight="500" fill="#991b1b" font-family="sans-serif">LLM sees random digit fragments</text>
+
+  <rect x="450" y="375" width="300" height="30" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="600" y="395" text-anchor="middle" font-size="11" font-weight="500" fill="#166534" font-family="sans-serif">LLM sees geometric primitives</text>
 </svg>

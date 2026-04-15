@@ -1,86 +1,65 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" width="700" height="320">
-  <defs>
-    <style>
-      .header { font-size: 20px; font-weight: 600; fill: #1f2937; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .label { font-size: 12px; font-weight: 500; fill: #374151; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .value { font-size: 13px; font-weight: 600; fill: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .tick-label { font-size: 11px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-      .subtitle { font-size: 10px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    </style>
-    <!-- Bar gradient -->
-    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-
-  <!-- Background -->
-  <rect width="700" height="320" fill="white"/>
+  <rect width="700" height="320" fill="white" rx="12"/>
 
   <!-- Title -->
-  <text x="350" y="28" class="header" text-anchor="middle">GID Benchmark: GPL vs BPE</text>
-  <text x="350" y="43" class="subtitle" text-anchor="middle">Geometric Information Density (lower is better for BPE; higher is better for GPL)</text>
+  <text x="350" y="28" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937" font-family="sans-serif">GID Benchmark: GPL vs BPE</text>
+  <text x="350" y="45" text-anchor="middle" font-size="10" fill="#6b7280" font-family="sans-serif">Geometric Information Density — higher = more geometry per token</text>
 
-  <!-- Y-axis baseline at 1.0x (BPE) -->
-  <line x1="150" y1="55" x2="150" y2="285" stroke="#e5e7eb" stroke-width="1"/>
-  <line x1="148" y1="223" x2="680" y2="223" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="3,3"/>
-  <text x="145" y="228" class="tick-label" text-anchor="end">1.0×</text>
-  <text x="680" y="228" class="tick-label" font-size="10" fill="#9ca3af">(BPE baseline)</text>
+  <!-- Y-axis line -->
+  <line x1="150" y1="58" x2="150" y2="280" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- BPE baseline at 1.0x -->
+  <line x1="150" y1="58" x2="150" y2="280" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
+  <text x="153" y="55" font-size="9" font-weight="600" fill="#ef4444" font-family="sans-serif">1.0x BPE baseline</text>
 
   <!-- Grid lines -->
-  <line x1="150" y1="138" x2="680" y2="138" stroke="#f3f4f6" stroke-width="1"/>
-  <line x1="150" y1="53" x2="680" y2="53" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="260" y1="58" x2="260" y2="280" stroke="#f3f4f6" stroke-width="1"/>
+  <text x="260" y="295" text-anchor="middle" font-size="9" fill="#d1d5db" font-family="sans-serif">2.0x</text>
+  <line x1="370" y1="58" x2="370" y2="280" stroke="#f3f4f6" stroke-width="1"/>
+  <text x="370" y="295" text-anchor="middle" font-size="9" fill="#d1d5db" font-family="sans-serif">3.0x</text>
+  <line x1="480" y1="58" x2="480" y2="280" stroke="#f3f4f6" stroke-width="1"/>
+  <text x="480" y="295" text-anchor="middle" font-size="9" fill="#d1d5db" font-family="sans-serif">4.0x</text>
 
-  <!-- Data: Each bar is positioned with (value * scale)
-       Scale: 1.0x = 0px, each 0.1x ≈ 17px width -->
+  <!-- Scale: 1.0x = 0px from x=150, each 1.0x = 110px -->
 
   <!-- 1. Simple line: 2.7x -->
-  <g>
-    <text x="145" y="80" class="label" text-anchor="end">Simple line</text>
-    <rect x="150" y="65" width="136" height="24" rx="4" fill="url(#barGrad)"/>
-    <text x="295" y="82" class="value" font-size="12">2.7×</text>
-  </g>
+  <text x="145" y="82" text-anchor="end" font-size="12" font-weight="500" fill="#374151" font-family="sans-serif">Simple line</text>
+  <rect x="150" y="68" width="187" height="22" rx="4" fill="#3b82f6"/>
+  <rect x="150" y="68" width="187" height="22" rx="4" fill="#2563eb" opacity="0.8"/>
+  <text x="345" y="84" font-size="12" font-weight="700" fill="#1e40af" font-family="sans-serif">2.7x</text>
 
   <!-- 2. Rectangle: 1.6x -->
-  <g>
-    <text x="145" y="125" class="label" text-anchor="end">Rectangle</text>
-    <rect x="150" y="110" width="99" height="24" rx="4" fill="url(#barGrad)"/>
-    <text x="258" y="127" class="value" font-size="12">1.6×</text>
-  </g>
+  <text x="145" y="119" text-anchor="end" font-size="12" font-weight="500" fill="#374151" font-family="sans-serif">Rectangle</text>
+  <rect x="150" y="105" width="66" height="22" rx="4" fill="#3b82f6"/>
+  <text x="224" y="121" font-size="12" font-weight="700" fill="#1e40af" font-family="sans-serif">1.6x</text>
 
   <!-- 3. Cubic Bezier: 1.6x -->
-  <g>
-    <text x="145" y="170" class="label" text-anchor="end">Cubic Bezier</text>
-    <rect x="150" y="155" width="99" height="24" rx="4" fill="url(#barGrad)"/>
-    <text x="258" y="172" class="value" font-size="12">1.6×</text>
-  </g>
+  <text x="145" y="156" text-anchor="end" font-size="12" font-weight="500" fill="#374151" font-family="sans-serif">Cubic Bezier</text>
+  <rect x="150" y="142" width="66" height="22" rx="4" fill="#3b82f6"/>
+  <text x="224" y="158" font-size="12" font-weight="700" fill="#1e40af" font-family="sans-serif">1.6x</text>
 
-  <!-- 4. Triangle icon: 3.4x (best) -->
-  <g>
-    <text x="145" y="215" class="label" text-anchor="end">Triangle icon</text>
-    <rect x="150" y="200" width="187" height="24" rx="4" fill="#10b981" opacity="0.85"/>
-    <text x="346" y="217" class="value" font-size="12" fill="white">3.4×</text>
-  </g>
+  <!-- 4. Triangle icon: 3.4x (best - highlight) -->
+  <text x="145" y="193" text-anchor="end" font-size="12" font-weight="600" fill="#166534" font-family="sans-serif">Triangle icon</text>
+  <rect x="150" y="179" width="264" height="22" rx="4" fill="#10b981"/>
+  <text x="422" y="195" font-size="12" font-weight="700" fill="#166534" font-family="sans-serif">3.4x</text>
+  <!-- Best badge -->
+  <rect x="450" y="182" width="35" height="16" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="467" y="193" text-anchor="middle" font-size="8" font-weight="600" fill="#166534" font-family="sans-serif">BEST</text>
 
   <!-- 5. Multi-path: 2.8x -->
-  <g>
-    <text x="145" y="260" class="label" text-anchor="end">Multi-path</text>
-    <rect x="150" y="245" width="145" height="24" rx="4" fill="url(#barGrad)"/>
-    <text x="304" y="262" class="value" font-size="12">2.8×</text>
-  </g>
+  <text x="145" y="230" text-anchor="end" font-size="12" font-weight="500" fill="#374151" font-family="sans-serif">Multi-path</text>
+  <rect x="150" y="216" width="198" height="22" rx="4" fill="#3b82f6"/>
+  <text x="356" y="232" font-size="12" font-weight="700" fill="#1e40af" font-family="sans-serif">2.8x</text>
 
   <!-- 6. Star icon: 2.2x -->
-  <g>
-    <text x="145" y="305" class="label" text-anchor="end">Star icon</text>
-    <rect x="150" y="290" width="118" height="24" rx="4" fill="url(#barGrad)"/>
-    <text x="277" y="307" class="value" font-size="12">2.2×</text>
-  </g>
+  <text x="145" y="267" text-anchor="end" font-size="12" font-weight="500" fill="#374151" font-family="sans-serif">Star icon</text>
+  <rect x="150" y="253" width="132" height="22" rx="4" fill="#3b82f6"/>
+  <text x="290" y="269" font-size="12" font-weight="700" fill="#1e40af" font-family="sans-serif">2.2x</text>
 
-  <!-- X-axis label -->
-  <text x="415" y="310" class="subtitle" text-anchor="middle">Compression improvement (GPL vs BPE)</text>
+  <!-- Average line -->
+  <line x1="309" y1="58" x2="309" y2="280" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.7"/>
+  <text x="312" y="55" font-size="9" font-weight="500" fill="#d97706" font-family="sans-serif">avg 2.4x</text>
 
-  <!-- Legend/explanation -->
-  <g font-size="9" fill="#6b7280">
-    <text x="150" y="50" class="subtitle">Improvement Multiplier →</text>
-  </g>
+  <!-- Bottom note -->
+  <text x="350" y="315" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="sans-serif">GID = I_geo(S) / |T| | Measured on GPL Tokenizer v0.1.0 with ARCS level 6</text>
 </svg>
