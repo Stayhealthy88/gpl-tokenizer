@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520">
+  <defs>
+    <style>
+      .header { font-size: 24px; font-weight: 600; fill: #1f2937; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .label { font-size: 14px; font-weight: 500; fill: #374151; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .sublabel { font-size: 12px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .container { fill: #f9fafb; stroke: #e5e7eb; stroke-width: 1.5; }
+      .column-header { font-size: 16px; font-weight: 600; fill: #111827; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="400" y="35" class="header" text-anchor="middle">Round-trip Fidelity</text>
+  <text x="400" y="55" class="sublabel" text-anchor="middle">SVG → GPL Tokenize → Reconstruct → SVG</text>
+
+  <!-- Column headers -->
+  <text x="170" y="100" class="column-header" text-anchor="middle">Original SVG</text>
+  <text x="630" y="100" class="column-header" text-anchor="middle">Reconstructed SVG</text>
+
+  <!-- Example 1: Cubic Bezier Curve -->
+  <!-- Original container -->
+  <rect x="40" y="120" width="260" height="110" rx="8" class="container"/>
+  <text x="170" y="145" class="label" text-anchor="middle">Cubic Bezier</text>
+  <!-- Curve visualization -->
+  <path d="M 80 190 C 110 160, 150 160, 200 190" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="80" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
+  <circle cx="200" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
+  <!-- Token count -->
+  <text x="170" y="225" class="sublabel" text-anchor="middle">18 tokens</text>
+
+  <!-- Reconstructed container -->
+  <rect x="500" y="120" width="260" height="110" rx="8" class="container"/>
+  <text x="630" y="145" class="label" text-anchor="middle">Cubic Bezier</text>
+  <!-- Same curve -->
+  <path d="M 540 190 C 570 160, 610 160, 660 190" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="540" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
+  <circle cx="660" cy="190" r="2.5" fill="#2563eb" opacity="0.6"/>
+  <!-- Token count -->
+  <text x="630" y="225" class="sublabel" text-anchor="middle">6 tokens</text>
+
+  <!-- Example 2: Triangle -->
+  <!-- Original container -->
+  <rect x="40" y="250" width="260" height="110" rx="8" class="container"/>
+  <text x="170" y="275" class="label" text-anchor="middle">Triangle</text>
+  <!-- Triangle -->
+  <polygon points="170,295 130,345 210,345" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="170" cy="295" r="2.5" fill="#dc2626" opacity="0.6"/>
+  <circle cx="130" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
+  <circle cx="210" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
+  <!-- Token count -->
+  <text x="170" y="370" class="sublabel" text-anchor="middle">21 tokens</text>
+
+  <!-- Reconstructed container -->
+  <rect x="500" y="250" width="260" height="110" rx="8" class="container"/>
+  <text x="630" y="275" class="label" text-anchor="middle">Triangle</text>
+  <!-- Same triangle -->
+  <polygon points="630,295 590,345 670,345" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="630" cy="295" r="2.5" fill="#dc2626" opacity="0.6"/>
+  <circle cx="590" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
+  <circle cx="670" cy="345" r="2.5" fill="#dc2626" opacity="0.6"/>
+  <!-- Token count -->
+  <text x="630" y="370" class="sublabel" text-anchor="middle">4 tokens</text>
+
+  <!-- Example 3: Star Shape -->
+  <!-- Original container -->
+  <rect x="40" y="380" width="260" height="110" rx="8" class="container"/>
+  <text x="170" y="405" class="label" text-anchor="middle">Star Icon</text>
+  <!-- Star -->
+  <polygon points="170,405 176,425 197,425 180,438 186,458 170,445 154,458 160,438 143,425 164,425" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Token count -->
+  <text x="170" y="505" class="sublabel" text-anchor="middle">34 tokens</text>
+
+  <!-- Reconstructed container -->
+  <rect x="500" y="380" width="260" height="110" rx="8" class="container"/>
+  <text x="630" y="405" class="label" text-anchor="middle">Star Icon</text>
+  <!-- Same star -->
+  <polygon points="630,405 636,425 657,425 640,438 646,458 630,445 614,458 620,438 603,425 624,425" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Token count -->
+  <text x="630" y="505" class="sublabel" text-anchor="middle">8 tokens</text>
+
+  <!-- Arrow between columns -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9ca3af"/>
+    </marker>
+  </defs>
+  <line x1="310" y1="175" x2="490" y2="175" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="4,4"/>
+  <line x1="310" y1="305" x2="490" y2="305" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="4,4"/>
+  <line x1="310" y1="435" x2="490" y2="435" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="4,4"/>
+</svg>

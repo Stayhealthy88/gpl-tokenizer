@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" width="700" height="320">
+  <defs>
+    <style>
+      .header { font-size: 20px; font-weight: 600; fill: #1f2937; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .label { font-size: 12px; font-weight: 500; fill: #374151; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .value { font-size: 13px; font-weight: 600; fill: white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .tick-label { font-size: 11px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .subtitle { font-size: 10px; fill: #6b7280; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+    <!-- Bar gradient -->
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="320" fill="white"/>
+
+  <!-- Title -->
+  <text x="350" y="28" class="header" text-anchor="middle">GID Benchmark: GPL vs BPE</text>
+  <text x="350" y="43" class="subtitle" text-anchor="middle">Geometric Information Density (lower is better for BPE; higher is better for GPL)</text>
+
+  <!-- Y-axis baseline at 1.0x (BPE) -->
+  <line x1="150" y1="55" x2="150" y2="285" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="148" y1="223" x2="680" y2="223" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="145" y="228" class="tick-label" text-anchor="end">1.0×</text>
+  <text x="680" y="228" class="tick-label" font-size="10" fill="#9ca3af">(BPE baseline)</text>
+
+  <!-- Grid lines -->
+  <line x1="150" y1="138" x2="680" y2="138" stroke="#f3f4f6" stroke-width="1"/>
+  <line x1="150" y1="53" x2="680" y2="53" stroke="#f3f4f6" stroke-width="1"/>
+
+  <!-- Data: Each bar is positioned with (value * scale)
+       Scale: 1.0x = 0px, each 0.1x ≈ 17px width -->
+
+  <!-- 1. Simple line: 2.7x -->
+  <g>
+    <text x="145" y="80" class="label" text-anchor="end">Simple line</text>
+    <rect x="150" y="65" width="136" height="24" rx="4" fill="url(#barGrad)"/>
+    <text x="295" y="82" class="value" font-size="12">2.7×</text>
+  </g>
+
+  <!-- 2. Rectangle: 1.6x -->
+  <g>
+    <text x="145" y="125" class="label" text-anchor="end">Rectangle</text>
+    <rect x="150" y="110" width="99" height="24" rx="4" fill="url(#barGrad)"/>
+    <text x="258" y="127" class="value" font-size="12">1.6×</text>
+  </g>
+
+  <!-- 3. Cubic Bezier: 1.6x -->
+  <g>
+    <text x="145" y="170" class="label" text-anchor="end">Cubic Bezier</text>
+    <rect x="150" y="155" width="99" height="24" rx="4" fill="url(#barGrad)"/>
+    <text x="258" y="172" class="value" font-size="12">1.6×</text>
+  </g>
+
+  <!-- 4. Triangle icon: 3.4x (best) -->
+  <g>
+    <text x="145" y="215" class="label" text-anchor="end">Triangle icon</text>
+    <rect x="150" y="200" width="187" height="24" rx="4" fill="#10b981" opacity="0.85"/>
+    <text x="346" y="217" class="value" font-size="12" fill="white">3.4×</text>
+  </g>
+
+  <!-- 5. Multi-path: 2.8x -->
+  <g>
+    <text x="145" y="260" class="label" text-anchor="end">Multi-path</text>
+    <rect x="150" y="245" width="145" height="24" rx="4" fill="url(#barGrad)"/>
+    <text x="304" y="262" class="value" font-size="12">2.8×</text>
+  </g>
+
+  <!-- 6. Star icon: 2.2x -->
+  <g>
+    <text x="145" y="305" class="label" text-anchor="end">Star icon</text>
+    <rect x="150" y="290" width="118" height="24" rx="4" fill="url(#barGrad)"/>
+    <text x="277" y="307" class="value" font-size="12">2.2×</text>
+  </g>
+
+  <!-- X-axis label -->
+  <text x="415" y="310" class="subtitle" text-anchor="middle">Compression improvement (GPL vs BPE)</text>
+
+  <!-- Legend/explanation -->
+  <g font-size="9" fill="#6b7280">
+    <text x="150" y="50" class="subtitle">Improvement Multiplier →</text>
+  </g>
+</svg>
