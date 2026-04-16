@@ -9,7 +9,7 @@ GPL 토큰 시퀀스를 유효한 SVG path 문자열로 역변환.
 
 from typing import List, Tuple, Optional
 from .vocabulary import (
-    GPLVocabulary, GPLToken, SpecialToken, CommandToken,
+    GPLVocabulary, GPLToken, SpecialToken, CommandToken, CompositeToken,
     ContinuityToken, CURVATURE_TOKEN_BASE, N_CURVATURE_BINS,
     COORD_TOKEN_BASE
 )
@@ -64,13 +64,155 @@ class Detokenizer:
 
     def to_svg_document(self, token_ids: List[int],
                         width: float = 300, height: float = 300) -> str:
-        """토큰 시퀀스를 완전한 SVG 문서로 변환."""
-        path_elem = self.to_svg_element(token_ids)
+        """토큰 시퀀스를 완전한 SVG 문서로 변환 (Level 2 복합 토큰 지원)."""
+        elements = self._to_svg_elements(token_ids)
+        inner = "\n  ".join(elements)
         return (f'<svg xmlns="http://www.w3.org/2000/svg" '
                 f'width="{width}" height="{height}" '
                 f'viewBox="0 0 {width} {height}">\n'
-                f'  {path_elem}\n'
+                f'  {inner}\n'
                 f'</svg>')
+
+    def _to_svg_elements(self, token_ids: List[int]) -> List[str]:
+        """토큰 시퀀스를 SVG 요소 리스트로 변환 (path + 기본 도형)."""
+        decoded = [self.vocab.decode_token_id(tid) for tid in token_ids]
+        elements = []
+        path_segments = []
+        i = 0
+
+        while i < len(decoded):
+            d = decoded[i]
+
+            if d["type"] == "special":
+                i += 1
+                continue
+
+            if d["type"] == "composite":
+                # 현재까지 쌓인 path segments가 있으면 먼저 출력
+                if path_segments:
+                    path_d = self._segments_to_path_d(path_segments)
+                    if path_d:
+                        elements.append(
+                            f'<path d="{path_d}" fill="none" stroke="black" stroke-width="1"/>'
+                        )
+                    path_segments = []
+
+                # 복합 토큰 처리
+                elem, consumed = self._decode_composite(decoded, i)
+                if elem:
+                    elements.append(elem)
+                i += consumed
+                continue
+
+            if d["type"] == "command":
+                seg = {"command": d["value"], "coords": [], "continuity": None, "curvature_bin": None}
+                i += 1
+                while i < len(decoded):
+                    dd = decoded[i]
+                    if dd["type"] == "coord":
+                        from .arcs import QuantizedCoord
+                        qc = QuantizedCoord(level=dd["level"], qx=dd["qx"], qy=dd["qy"],
+                                            original_x=0, original_y=0)
+                        x, y = self.arcs.dequantize(qc)
+                        seg["coords"].append((x, y))
+                        i += 1
+                    elif dd["type"] == "continuity":
+                        seg["continuity"] = dd["value"]
+                        i += 1
+                    elif dd["type"] == "curvature":
+                        seg["curvature_bin"] = dd["bin"]
+                        i += 1
+                    else:
+                        break
+                path_segments.append(seg)
+                continue
+
+            i += 1
+
+        # 남은 path segments 출력
+        if path_segments:
+            path_d = self._segments_to_path_d(path_segments)
+            if path_d:
+                elements.append(
+                    f'<path d="{path_d}" fill="none" stroke="black" stroke-width="1"/>'
+                )
+
+        return elements if elements else [self.to_svg_element(token_ids)]
+
+    def _decode_composite(self, decoded: List[dict], start: int) -> Tuple[str, int]:
+        """복합 토큰을 SVG 기본 도형 요소로 변환. (consumed 수 반환)"""
+        d = decoded[start]
+        shape = d["value"]
+
+        def read_coord(idx):
+            """다음 coord 토큰을 읽어 (x, y)로 변환."""
+            if idx >= len(decoded) or decoded[idx]["type"] != "coord":
+                return None, idx
+            dd = decoded[idx]
+            from .arcs import QuantizedCoord
+            qc = QuantizedCoord(level=dd["level"], qx=dd["qx"], qy=dd["qy"],
+                                original_x=0, original_y=0)
+            x, y = self.arcs.dequantize(qc)
+            return (x, y), idx + 1
+
+        def fmt(v):
+            return f"{v:.1f}".rstrip('0').rstrip('.')
+
+        idx = start + 1
+
+        if shape == "CIRCLE":
+            center, idx = read_coord(idx)
+            radius, idx = read_coord(idx)
+            if center and radius:
+                cx, cy = center
+                r = (radius[0] + radius[1]) / 2  # (r, r)로 인코딩됨
+                return (f'<circle cx="{fmt(cx)}" cy="{fmt(cy)}" r="{fmt(r)}" '
+                        f'fill="none" stroke="black" stroke-width="1"/>',
+                        idx - start)
+
+        elif shape == "ELLIPSE":
+            center, idx = read_coord(idx)
+            radii, idx = read_coord(idx)
+            if center and radii:
+                cx, cy = center
+                rx, ry = radii
+                return (f'<ellipse cx="{fmt(cx)}" cy="{fmt(cy)}" rx="{fmt(rx)}" ry="{fmt(ry)}" '
+                        f'fill="none" stroke="black" stroke-width="1"/>',
+                        idx - start)
+
+        elif shape == "RECT":
+            origin, idx = read_coord(idx)
+            size, idx = read_coord(idx)
+            if origin and size:
+                x, y = origin
+                w, h = size
+                return (f'<rect x="{fmt(x)}" y="{fmt(y)}" width="{fmt(w)}" height="{fmt(h)}" '
+                        f'fill="none" stroke="black" stroke-width="1"/>',
+                        idx - start)
+
+        elif shape == "ROUND_RECT":
+            origin, idx = read_coord(idx)
+            size, idx = read_coord(idx)
+            radii, idx = read_coord(idx)
+            if origin and size and radii:
+                x, y = origin
+                w, h = size
+                rx, ry = radii
+                return (f'<rect x="{fmt(x)}" y="{fmt(y)}" width="{fmt(w)}" height="{fmt(h)}" '
+                        f'rx="{fmt(rx)}" ry="{fmt(ry)}" '
+                        f'fill="none" stroke="black" stroke-width="1"/>',
+                        idx - start)
+
+        return None, 1
+
+    def _segments_to_path_d(self, segments: List[dict]) -> str:
+        """세그먼트 리스트를 path d 문자열로 변환."""
+        parts = []
+        for seg in segments:
+            part = self._segment_to_path_str(seg)
+            if part:
+                parts.append(part)
+        return " ".join(parts)
 
     def _group_into_segments(self, decoded: List[dict]) -> List[dict]:
         """디코딩된 토큰을 명령어 세그먼트로 그룹화."""

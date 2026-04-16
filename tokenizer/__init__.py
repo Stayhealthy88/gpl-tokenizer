@@ -1,6 +1,10 @@
 from .primitive_tokenizer import PrimitiveTokenizer
-from .vocabulary import GPLVocabulary
+from .composite_tokenizer import CompositeTokenizer
+from .vocabulary import GPLVocabulary, CompositeToken
 from .detokenizer import Detokenizer
 from .arcs import ARCS
 
-__all__ = ["PrimitiveTokenizer", "GPLVocabulary", "Detokenizer", "ARCS"]
+__all__ = [
+    "PrimitiveTokenizer", "CompositeTokenizer",
+    "GPLVocabulary", "CompositeToken", "Detokenizer", "ARCS",
+]

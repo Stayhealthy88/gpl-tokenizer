@@ -40,6 +40,14 @@ class CommandToken(IntEnum):
     CLOSE = 17
 
 
+class CompositeToken(IntEnum):
+    """Level 2 복합 도형 토큰."""
+    CIRCLE = 20       # 원: [CIRCLE][cx,cy][r]
+    ELLIPSE = 21      # 타원: [ELLIPSE][cx,cy][rx,ry]
+    RECT = 22         # 사각형: [RECT][x,y][w,h]
+    ROUND_RECT = 23   # 둥근 사각형: [ROUND_RECT][x,y][w,h][rx,ry]
+
+
 class ContinuityToken(IntEnum):
     """연속성 레벨 토큰 (DiffAttr 일부)."""
     DISC = 30    # 불연속
@@ -122,6 +130,10 @@ class GPLVocabulary:
     def command_token(self, ct: CommandToken) -> GPLToken:
         return GPLToken(token_id=int(ct), token_type="command", value=ct.name)
 
+    def composite_token(self, ct: 'CompositeToken') -> GPLToken:
+        """Level 2 복합 도형 토큰 생성."""
+        return GPLToken(token_id=int(ct), token_type="composite", value=ct.name)
+
     def continuity_token(self, cl: ContinuityToken) -> GPLToken:
         return GPLToken(token_id=int(cl), token_type="continuity", value=cl.name)
 
@@ -147,8 +159,10 @@ class GPLVocabulary:
         """토큰 ID를 해석."""
         if token_id < 10:
             return {"type": "special", "value": SpecialToken(token_id).name}
-        elif 10 <= token_id < 20:
+        elif 10 <= token_id < 18:
             return {"type": "command", "value": CommandToken(token_id).name}
+        elif 20 <= token_id < 24:
+            return {"type": "composite", "value": CompositeToken(token_id).name}
         elif 30 <= token_id < 34:
             return {"type": "continuity", "value": ContinuityToken(token_id).name}
         elif CURVATURE_TOKEN_BASE <= token_id < CURVATURE_TOKEN_BASE + N_CURVATURE_BINS:
