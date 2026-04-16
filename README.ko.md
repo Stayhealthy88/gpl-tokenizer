@@ -1,11 +1,11 @@
 # GPL Tokenizer — Geometric Primitive Language for SVG
 
 <p align="center">
-  <strong>A next-generation tokenization system that preserves geometric structure of SVG</strong>
+  <strong>SVG의 기하학적 구조를 보존하는 차세대 토큰화 시스템</strong>
 </p>
 
 <p align="center">
-  <a href="./README.ko.md">한국어</a> •
+  <a href="./README.md">English</a> •
   <a href="#features">Features</a> •
   <a href="#quick-start">Quick Start</a> •
   <a href="#architecture">Architecture</a> •
@@ -17,7 +17,7 @@
 
 ## Problem
 
-The root cause of **coordinate hallucination** when LLMs generate SVG is that BPE tokenization destroys 2D geometric information.
+LLM이 SVG를 생성할 때 **좌표 환각(coordinate hallucination)** 이 발생하는 근본 원인은 BPE 토큰화가 2D 기하학적 정보를 파괴하기 때문입니다.
 
 <p align="center">
   <img src="assets/bpe_vs_gpl.svg" alt="BPE vs GPL Tokenization" width="750"/>
@@ -25,22 +25,22 @@ The root cause of **coordinate hallucination** when LLMs generate SVG is that BP
 
 ```
 SVG:    C 40 10, 65 10, 95 80
-BPE:    ["C", " 4", "0", " 1", "0", ",", " 6", "5", ...]  → 15+ tokens (geometry destroyed)
-GPL:    [CUBIC] [q4:5,1] [q4:8,1] [q4:12,10] [G1] [κ3]    → 6 tokens (geometry preserved)
+BPE:    ["C", " 4", "0", " 1", "0", ",", " 6", "5", ...]  → 15+ tokens (기하학적 의미 파괴)
+GPL:    [CUBIC] [q4:5,1] [q4:8,1] [q4:12,10] [G1] [κ3]    → 6 tokens (기하학적 구조 보존)
 ```
 
 ## Features
 
-- **SVG 1.1 Full Parser** — Supports path, circle, rect, ellipse, line, polygon, polyline
-- **Geometric Analyzer** — Bézier curvature, G0/G1/G2 continuity, arc length, tangent angle analysis
-- **ARCS (Adaptive Resolution Coordinate System)** — Quadtree-based adaptive coordinate quantization
-- **Level 1 Primitive Tokenizer** — [Command][Coords][Continuity][Curvature] compound token structure
-- **Detokenizer** — GPL tokens → valid SVG reconstruction
-- **Round-trip verified** — 24/24 tests passing
+- **SVG 1.1 Full Parser** — path, circle, rect, ellipse, line, polygon, polyline 지원
+- **Geometric Analyzer** — 베지에 곡률, G0/G1/G2 연속성, 호 길이, 접선 각도 분석
+- **ARCS (Adaptive Resolution Coordinate System)** — 쿼드트리 기반 적응적 좌표 양자화
+- **Level 1 Primitive Tokenizer** — [Command][Coords][Continuity][Curvature] 복합 토큰 구조
+- **Detokenizer** — GPL 토큰 → 유효 SVG 역변환
+- **Round-trip verified** — 24/24 테스트 통과
 
 ## Round-trip Demo
 
-Visual comparison of original vs. reconstructed SVG after GPL tokenization and detokenization:
+GPL 토큰화 후 역변환한 결과 — 원본과 복원 SVG의 시각적 비교:
 
 <p align="center">
   <img src="assets/roundtrip_demo.svg" alt="Round-trip Tokenization Demo" width="750"/>
@@ -52,11 +52,11 @@ Visual comparison of original vs. reconstructed SVG after GPL tokenization and d
 from gpl_tokenizer.parser import SVGParser
 from gpl_tokenizer.tokenizer import PrimitiveTokenizer, Detokenizer
 
-# 1. Parse SVG
+# 1. SVG 파싱
 parser = SVGParser()
 doc = parser.parse_string('<svg width="300" height="300"><path d="M 10 80 C 40 10, 65 10, 95 80"/></svg>')
 
-# 2. GPL Tokenize
+# 2. GPL 토큰화
 tokenizer = PrimitiveTokenizer(canvas_size=300, max_coord_level=6)
 result = tokenizer.tokenize(doc.elements[0].commands)
 
@@ -64,12 +64,12 @@ print(f"Commands: {result.n_commands}")   # 2
 print(f"Tokens: {result.n_tokens}")       # ~8
 print(f"Token IDs: {result.token_ids}")
 
-# 3. Detokenize (reconstruct)
+# 3. 역변환 (Detokenize)
 detok = Detokenizer(tokenizer.vocab, tokenizer.arcs)
 svg_d = detok.detokenize(result.token_ids)
 print(f"Recovered: {svg_d}")
 
-# 4. Reconstruct full SVG document
+# 4. 완전한 SVG 문서로 복원
 svg_doc = detok.to_svg_document(result.token_ids, width=300, height=300)
 ```
 
@@ -93,14 +93,14 @@ SVG Text
 
 ### Token Structure
 
-Each renderable segment is converted into a token subsequence with the following structure:
+각 렌더링 가능 세그먼트는 다음 구조의 토큰 서브시퀀스로 변환됩니다:
 
 | Field | Description | Example |
 |:---|:---|:---|
-| `CommandToken` | Command type | `CUBIC`, `LINE`, `ARC` |
-| `CoordTokens` | ARCS quantized coordinates | `q4:5,1`, `q4:8,1`, `q4:12,10` |
-| `ContinuityToken` | Continuity with previous segment | `G0`, `G1`, `G2` |
-| `CurvatureToken` | Quantized curvature class | `κ0`(straight) ~ `κ15`(sharp curve) |
+| `CommandToken` | 명령어 유형 | `CUBIC`, `LINE`, `ARC` |
+| `CoordTokens` | ARCS 양자화 좌표 | `q4:5,1`, `q4:8,1`, `q4:12,10` |
+| `ContinuityToken` | 이전 세그먼트와의 연속성 | `G0`, `G1`, `G2` |
+| `CurvatureToken` | 양자화된 곡률 클래스 | `κ0`(직선) ~ `κ15`(급곡선) |
 
 ### Vocabulary Layout
 
@@ -115,7 +115,7 @@ Each renderable segment is converted into a token subsequence with the following
 
 ## Benchmarks
 
-GID (Geometric Information Density) — compared to BPE:
+GID (Geometric Information Density) — BPE 대비:
 
 <p align="center">
   <img src="assets/gid_benchmark.svg" alt="GID Benchmark vs BPE" width="650"/>
@@ -131,7 +131,7 @@ GID (Geometric Information Density) — compared to BPE:
 
 ## Real-world SVG Examples
 
-GPL tokenization applied to real-world SVG animation patterns (inspired by anime.js):
+실제 SVG 애니메이션 패턴(anime.js 참고)에 GPL 토큰화를 적용한 예시:
 
 ### Shape Morphing
 
