@@ -175,7 +175,7 @@ gpl_tokenizer/
 ## Roadmap
 
 - [x] **v0.1** — Core tokenizer (parser, analyzer, ARCS, tokenizer, detokenizer)
-- [ ] **v0.2** — Level 2 segment merging (circle/rect → single token)
+- [x] **v0.2** — Level 2 segment merging (circle/rect → single token)
 - [ ] **v0.3** — Spatial relation tokens (ALIGN, SYM, PROP)
 - [ ] **v0.4** — PyTorch embedding layer with HMN initialization
 - [ ] **v0.5** — LLM fine-tuning pipeline (Qwen2.5-1.5B)
