@@ -11,10 +11,11 @@ GPL 토큰의 DiffAttr 필드에 연속성 타입을 부착하는 데 사용.
 
 import numpy as np
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 from enum import IntEnum
 
 from ..parser.path_parser import PathCommand, CommandType
+from ..utils.constants import GeometricConstants, DEFAULT_CONSTANTS
 from .curvature import CurvatureInfo
 
 
@@ -48,18 +49,29 @@ class ContinuityAnalyzer:
     """
 
     def __init__(self,
-                 g0_threshold: float = 0.5,
-                 g1_angle_threshold: float = 0.1,   # ~5.7°
-                 g2_curvature_threshold: float = 0.05):
+                 g0_threshold: Optional[float] = None,
+                 g1_angle_threshold: Optional[float] = None,
+                 g2_curvature_threshold: Optional[float] = None,
+                 constants: Optional[GeometricConstants] = None):
         """
         Args:
-            g0_threshold: G0 판정 거리 임계값
+            g0_threshold: G0 판정 거리 임계값 (미지정 시 constants 값 사용)
             g1_angle_threshold: G1 판정 접선 각도 차이 임계값 (라디안)
             g2_curvature_threshold: G2 판정 곡률 차이 임계값
+            constants: GeometricConstants 인스턴스. 미지정 시 DEFAULT_CONSTANTS 사용.
+
+        Note:
+            명시적 인자가 constants 보다 우선한다. 이는 기존 API 호환성을 유지한다.
         """
-        self.g0_threshold = g0_threshold
-        self.g1_angle_threshold = g1_angle_threshold
-        self.g2_curvature_threshold = g2_curvature_threshold
+        c = constants if constants is not None else DEFAULT_CONSTANTS
+        self.constants = c
+        self.g0_threshold = g0_threshold if g0_threshold is not None else c.g0_distance_threshold
+        self.g1_angle_threshold = (
+            g1_angle_threshold if g1_angle_threshold is not None else c.g1_angle_threshold
+        )
+        self.g2_curvature_threshold = (
+            g2_curvature_threshold if g2_curvature_threshold is not None else c.g2_curvature_threshold
+        )
 
     def analyze(self, commands: List[PathCommand],
                 curvature_infos: List[CurvatureInfo]) -> List[ContinuityInfo]:
@@ -145,7 +157,17 @@ class ContinuityAnalyzer:
         else:
             curv_err = float('inf')
 
-        if curv_err > self.g2_curvature_threshold:
+        # 상대 모드: |Δκ| / max(|κ_a|, |κ_b|, ε) ≤ tol
+        # 절대 모드: |Δκ| ≤ g2_curvature_threshold (기본)
+        if self.constants.use_relative_g2 and curv_a is not None and curv_b is not None:
+            denom = max(abs(curv_a.curvature_at_end),
+                        abs(curv_b.curvature_at_start),
+                        self.constants.g2_epsilon)
+            g2_fail = (curv_err / denom) > self.constants.g2_relative_tolerance
+        else:
+            g2_fail = curv_err > self.g2_curvature_threshold
+
+        if g2_fail:
             return ContinuityInfo(
                 segment_a_index=idx_a, segment_b_index=idx_b,
                 level=ContinuityLevel.G1,
