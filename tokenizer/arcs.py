@@ -247,6 +247,69 @@ class ARCS:
         rx, ry = self.dequantize(qc)
         return np.sqrt((x - rx) ** 2 + (y - ry) ** 2)
 
+    # --- v0.5.1: 정량적 왕복 충실도 API ---
+
+    def theoretical_max_error(self, level: int) -> float:
+        """
+        주어진 쿼드트리 레벨에서 양자화로 인한 최대 유클리드 오차의 이론적 상한.
+
+        셀은 정사각형이고 중심으로 복원(dequantize)되므로, 가장 멀리 떨어진
+        점은 셀 모서리이며 그 거리는 (cell_size/2)·sqrt(2).
+
+        Args:
+            level: 쿼드트리 레벨 (0=루트, max_level=리프).
+        Returns:
+            해당 레벨에서 임의의 연속 좌표를 양자화→역양자화했을 때
+            발생할 수 있는 최대 L2 거리 (픽셀).
+        """
+        cell_size = self.canvas_size / (2 ** level)
+        return (cell_size / 2.0) * np.sqrt(2.0)
+
+    def roundtrip_fidelity(self, points: List[Tuple[float, float]]
+                           ) -> Dict[str, float]:
+        """
+        연속 좌표 집합에 대한 양자화 왕복 충실도를 정량화.
+
+        Args:
+            points: [(x, y), ...] 원본 좌표 리스트.
+        Returns:
+            사전 키:
+              - "max_error"       : 최대 L2 오차 (픽셀)
+              - "mean_error"      : 평균 L2 오차
+              - "rms_error"       : RMS 오차
+              - "theoretical_bound": 사용된 리프 레벨에서의 이론 상한
+              - "within_bound"    : 실제 최대 오차 ≤ 이론 상한 여부 (항상 True)
+              - "n_points"        : 측정 점 수
+        """
+        if not points:
+            return {
+                "max_error": 0.0, "mean_error": 0.0, "rms_error": 0.0,
+                "theoretical_bound": 0.0, "within_bound": True, "n_points": 0,
+            }
+
+        errors = []
+        levels = set()
+        for (x, y) in points:
+            qc = self.quantize(x, y)
+            rx, ry = self.dequantize(qc)
+            errors.append(float(np.hypot(x - rx, y - ry)))
+            levels.add(qc.level)
+
+        # 이론 상한은 사용된 가장 얕은(coarse) 레벨 기준 — 가장 큰 셀
+        coarsest_level = min(levels) if levels else self.max_level
+        bound = self.theoretical_max_error(coarsest_level)
+        errs = np.asarray(errors)
+
+        return {
+            "max_error": float(errs.max()),
+            "mean_error": float(errs.mean()),
+            "rms_error": float(np.sqrt((errs ** 2).mean())),
+            "theoretical_bound": float(bound),
+            # 부동소수점 여유(1e-6) 를 둠
+            "within_bound": bool(errs.max() <= bound + 1e-6),
+            "n_points": len(points),
+        }
+
     def total_leaf_count(self) -> int:
         """리프 노드 총 수 (=좌표 어휘 크기의 지표)."""
         return self._count_leaves(self.root)
