@@ -12,6 +12,8 @@ import numpy as np
 from dataclasses import dataclass
 from typing import Tuple, List, Optional
 
+from .constants import DEFAULT_CONSTANTS
+
 
 @dataclass
 class Point:
@@ -188,20 +190,26 @@ class BezierMath:
     @classmethod
     def check_g1_continuity(cls, end_tangent: np.ndarray,
                             start_tangent: np.ndarray,
-                            angle_threshold: float = 0.05) -> bool:
+                            angle_threshold: Optional[float] = None) -> bool:
         """
         G1 연속성 검사: 두 접선 벡터가 같은 방향인지 판정.
 
         Args:
             end_tangent: 이전 세그먼트 끝점의 접선 벡터
             start_tangent: 다음 세그먼트 시작점의 접선 벡터
-            angle_threshold: 허용 각도 오차 (라디안), 기본 ~2.87°
+            angle_threshold: 허용 각도 오차 (라디안).
+                미지정 시 DEFAULT_CONSTANTS.g1_angle_threshold (≈0.1 rad ≈ 5.7°) 사용.
+                이전 버전은 0.05 를 기본으로 사용했으나, v0.5.1부터는 ContinuityAnalyzer
+                와 값이 일치하도록 통일되었다.
         Returns:
             G1 연속 여부.
         """
+        if angle_threshold is None:
+            angle_threshold = DEFAULT_CONSTANTS.g1_angle_threshold
+        zero_norm = DEFAULT_CONSTANTS.tangent_zero_norm
         norm1 = np.linalg.norm(end_tangent)
         norm2 = np.linalg.norm(start_tangent)
-        if norm1 < 1e-12 or norm2 < 1e-12:
+        if norm1 < zero_norm or norm2 < zero_norm:
             return True  # 퇴화 케이스 — G1 성립으로 간주
         u1 = end_tangent / norm1
         u2 = start_tangent / norm2
@@ -211,15 +219,20 @@ class BezierMath:
 
     @classmethod
     def check_g2_continuity(cls, kappa_end: float, kappa_start: float,
-                            threshold: float = 0.01) -> bool:
+                            threshold: Optional[float] = None) -> bool:
         """
         G2 연속성 검사: 연결점에서의 곡률 일치 여부.
 
         Args:
             kappa_end: 이전 세그먼트 끝점의 곡률
             kappa_start: 다음 세그먼트 시작점의 곡률
-            threshold: 허용 곡률 차이
+            threshold: 허용 곡률 차이.
+                미지정 시 DEFAULT_CONSTANTS.g2_curvature_threshold (≈0.05) 사용.
+                이전 버전은 0.01 을 기본으로 사용했으나, v0.5.1부터는 ContinuityAnalyzer
+                와 값이 일치하도록 통일되었다.
         Returns:
             G2 연속 여부.
         """
+        if threshold is None:
+            threshold = DEFAULT_CONSTANTS.g2_curvature_threshold
         return abs(kappa_end - kappa_start) < threshold

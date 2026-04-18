@@ -184,18 +184,35 @@ class GPLGenerator:
         )
 
     def _validate_svg(self, svg_path: str) -> bool:
-        """SVG path 기본 유효성 검사."""
+        """
+        SVG path 유효성 검사.
+
+        v0.5.1 개선 — 과거 버전은 "M 로 시작" + "숫자 포함" 만 확인했으나,
+        이는 `M` 하나만으로도 True 를 반환하는 약한 검증이었다.
+        이제 실제 PathParser 로 파싱해 적어도 1개의 렌더링 가능 명령이
+        성공적으로 해석되는지 검증한다. 파싱 실패 또는 0 명령이면 False.
+        """
         if not svg_path or len(svg_path.strip()) == 0:
             return False
 
-        # 최소한 이동 명령이 있어야 함
-        has_move = svg_path.strip().startswith('M') or svg_path.strip().startswith('m')
-        if not has_move:
+        stripped = svg_path.strip()
+        if not (stripped.startswith('M') or stripped.startswith('m')):
             return False
 
-        # 숫자가 포함되어야 함
-        has_number = any(c.isdigit() for c in svg_path)
-        return has_number
+        # PathParser 로 실제 해석 시도
+        try:
+            from ..parser.path_parser import PathParser, CommandType
+            parser = PathParser()
+            commands = parser.parse(svg_path)
+        except Exception:
+            return False
+
+        # 렌더링 가능 명령(MOVE/CLOSE 이외) 이 최소 1개 있어야 진짜 도형
+        renderable = [
+            c for c in commands
+            if c.command_type not in (CommandType.MOVE, CommandType.CLOSE)
+        ]
+        return len(renderable) >= 1
 
     @staticmethod
     def save_svg(result: GeneratedSVG, filepath: str):

@@ -103,12 +103,27 @@ class GPLVocabulary:
     """
     GPL 토큰 어휘 관리.
 
-    토큰 ID 레이아웃:
-        0-9:     특수 토큰 (PAD, BOS, EOS, SEP, UNK)
-        10-19:   명령어 토큰 (MOVE, LINE, CUBIC, ...)
-        30-33:   연속성 토큰 (DISC, G0, G1, G2)
-        40-55:   곡률 클래스 토큰 (16 bins)
-        100+:    좌표 토큰 (ARCS 양자화 좌표)
+    토큰 ID 레이아웃 (v0.5.1 명시):
+        0-4     : 특수 토큰 (PAD, BOS, EOS, SEP, UNK)
+        5-9     : [예약] 추가 특수 토큰 — MASK, CLS 등
+        10-17   : 명령어 토큰 (MOVE~CLOSE, 8개)
+        18-19   : [예약] 명령어 확장 (예: SMOOTH_CUBIC)
+        20-23   : Level 2 복합 도형 (CIRCLE, ELLIPSE, RECT, ROUND_RECT)
+        24-29   : [예약] 복합 도형 확장 (POLYGON, POLYLINE, STAR 등)
+        30-33   : 연속성 토큰 (DISC, G0, G1, G2)
+        34-39   : [예약] 연속성 확장 (G3 고차 도함수 등)
+        40-55   : 곡률 클래스 토큰 (16 bins, κ0 ~ κ15)
+        56-59   : [예약] 곡률 비닝 확장
+        60-70   : Level 3 공간 관계 (ALIGN, SYM, EQUAL, REPEAT)
+        71-99   : [예약] 공간 관계 확장 (GRID, RADIAL_SYM, FIBONACCI 등)
+        100+    : ARCS 좌표 토큰 (쿼드트리 레벨 0~max_coord_level)
+
+    예약 영역(reserved) 은 미래 확장을 위해 decode_token_id 에서 'unknown'
+    으로 반환되며, 기존 학습 체크포인트를 깨지 않고 새 토큰을 안전하게
+    추가할 수 있는 여유 공간이다. 새 토큰을 추가할 때는 이 표와 아래
+    IntEnum 블록들, decode_token_id 의 분기, HMNInitializer 의 해당
+    `_init_*_tokens` 메서드, 그리고 v0.1 문서 3곳(README.md, README.ko.md,
+    RESEARCH_SUMMARY.md) 의 어휘 표를 함께 갱신할 것.
 
     사용법:
         vocab = GPLVocabulary(max_coord_level=6)

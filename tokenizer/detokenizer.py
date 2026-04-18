@@ -7,7 +7,7 @@ GPL 토큰 시퀀스를 유효한 SVG path 문자열로 역변환.
     "디토크나이저의 역변환 충실도" — 왕복(round-trip) 테스트로 검증 가능하도록 설계.
 """
 
-from typing import List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional
 from .vocabulary import (
     GPLVocabulary, GPLToken, SpecialToken, CommandToken, CompositeToken,
     SpatialToken, ContinuityToken, CURVATURE_TOKEN_BASE, N_CURVATURE_BINS,
@@ -53,6 +53,107 @@ class Detokenizer:
                 parts.append(part)
 
         return " ".join(parts)
+
+    def extract_coordinates(self, token_ids: List[int]
+                             ) -> List[Tuple[float, float]]:
+        """
+        토큰 시퀀스에서 좌표 토큰만 순서대로 추출해 (x, y) 리스트로 반환.
+
+        v0.5.1 신규 — 왕복 오차 정량화에 사용.
+
+        Args:
+            token_ids: GPL 토큰 ID 시퀀스.
+        Returns:
+            역양자화된 (x, y) 좌표 리스트. 좌표 토큰이 아닌 항목은 건너뜀.
+        """
+        from .arcs import QuantizedCoord
+        coords: List[Tuple[float, float]] = []
+        for tid in token_ids:
+            info = self.vocab.decode_token_id(tid)
+            if info.get("type") != "coord":
+                continue
+            qc = QuantizedCoord(
+                level=info["level"], qx=info["qx"], qy=info["qy"],
+                original_x=0.0, original_y=0.0,
+            )
+            coords.append(self.arcs.dequantize(qc))
+        return coords
+
+    def measure_fidelity(self,
+                          original_points: List[Tuple[float, float]],
+                          token_ids: List[int],
+                          ) -> Dict[str, float]:
+        """
+        원본 좌표와 토큰 시퀀스를 비교해 왕복 충실도를 측정.
+
+        v0.5.1 신규 — 논문급 검증을 위해 원본↔복원 좌표 정렬 L2 거리 계산.
+
+        오차 상한은 토큰이 실제로 사용한 가장 얕은(coarse) 레벨을 기반으로
+        계산되므로, adaptive tree 가 빌드되지 않아 min_level 만 쓰는 경우에도
+        상한이 정확히 산출된다.
+
+        Args:
+            original_points: 원본 (x, y) 리스트.
+            token_ids: 해당 좌표를 토큰화한 시퀀스.
+        Returns:
+            사전 키:
+              - "max_error"       : 최대 L2 오차 (픽셀)
+              - "mean_error"      : 평균 L2 오차
+              - "rms_error"       : RMS 오차
+              - "theoretical_bound": 사용된 가장 얕은 레벨의 이론 상한
+              - "within_bound"    : 실제 max_error ≤ 이론 상한 여부
+              - "n_points"        : 원본 좌표 수
+              - "n_recovered"     : 복원된 좌표 수
+              - "coarsest_level"  : 토큰에서 관측된 가장 얕은 레벨
+        """
+        import numpy as _np
+
+        # 토큰에서 사용된 레벨 수집 + 복원 좌표 추출
+        from .arcs import QuantizedCoord
+        recovered: List[Tuple[float, float]] = []
+        levels: List[int] = []
+        for tid in token_ids:
+            info = self.vocab.decode_token_id(tid)
+            if info.get("type") != "coord":
+                continue
+            qc = QuantizedCoord(
+                level=info["level"], qx=info["qx"], qy=info["qy"],
+                original_x=0.0, original_y=0.0,
+            )
+            recovered.append(self.arcs.dequantize(qc))
+            levels.append(info["level"])
+
+        n_match = min(len(original_points), len(recovered))
+        paired = list(zip(original_points[:n_match], recovered[:n_match]))
+
+        coarsest = min(levels) if levels else self.arcs.max_level
+
+        if not paired:
+            return {
+                "max_error": 0.0, "mean_error": 0.0, "rms_error": 0.0,
+                "theoretical_bound": self.arcs.theoretical_max_error(coarsest),
+                "within_bound": True,
+                "n_points": len(original_points),
+                "n_recovered": len(recovered),
+                "coarsest_level": int(coarsest),
+            }
+
+        errs = _np.asarray([
+            _np.hypot(ox - rx, oy - ry) for (ox, oy), (rx, ry) in paired
+        ])
+        # 각 좌표의 실제 레벨에 대응하는 상한 중 최댓값 — 가장 엄격한 상한
+        bound = self.arcs.theoretical_max_error(coarsest)
+
+        return {
+            "max_error": float(errs.max()),
+            "mean_error": float(errs.mean()),
+            "rms_error": float(_np.sqrt((errs ** 2).mean())),
+            "theoretical_bound": float(bound),
+            "within_bound": bool(errs.max() <= bound + 1e-6),
+            "n_points": len(original_points),
+            "n_recovered": len(recovered),
+            "coarsest_level": int(coarsest),
+        }
 
     def to_svg_element(self, token_ids: List[int],
                        fill: str = "none", stroke: str = "black",
