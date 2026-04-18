@@ -48,6 +48,30 @@ class CompositeToken(IntEnum):
     ROUND_RECT = 23   # 둥근 사각형: [ROUND_RECT][x,y][w,h][rx,ry]
 
 
+class SpatialToken(IntEnum):
+    """Level 3 공간 관계 토큰."""
+    # 정렬 (Alignment)
+    ALIGN_CENTER_H = 60    # 수평 중심 정렬: [ALIGN_H][axis_y_coord]
+    ALIGN_CENTER_V = 61    # 수직 중심 정렬: [ALIGN_V][axis_x_coord]
+
+    # 대칭 (Symmetry)
+    SYM_REFLECT_X = 62     # 세로축 반사 대칭: [SYM_X][axis_x_coord]
+    SYM_REFLECT_Y = 63     # 가로축 반사 대칭: [SYM_Y][axis_y_coord]
+
+    # 등간격 (Distribution)
+    EQUAL_SPACE_H = 64     # 수평 등간격: [EQUAL_SPACE_H][spacing_coord]
+    EQUAL_SPACE_V = 65     # 수직 등간격: [EQUAL_SPACE_V][spacing_coord]
+
+    # 크기 (Proportion)
+    EQUAL_SIZE = 66        # 동일 크기 마커
+
+    # 반복 카운트 (Repetition)
+    REPEAT_2 = 67          # 2회 추가 반복 (총 3개)
+    REPEAT_3 = 68          # 3회 추가 반복 (총 4개)
+    REPEAT_4 = 69          # 4회 추가 반복 (총 5개)
+    REPEAT_N = 70          # N회 반복: [REPEAT_N][count_as_coord]
+
+
 class ContinuityToken(IntEnum):
     """연속성 레벨 토큰 (DiffAttr 일부)."""
     DISC = 30    # 불연속
@@ -134,6 +158,10 @@ class GPLVocabulary:
         """Level 2 복합 도형 토큰 생성."""
         return GPLToken(token_id=int(ct), token_type="composite", value=ct.name)
 
+    def spatial_token(self, st: 'SpatialToken') -> GPLToken:
+        """Level 3 공간 관계 토큰 생성."""
+        return GPLToken(token_id=int(st), token_type="spatial", value=st.name)
+
     def continuity_token(self, cl: ContinuityToken) -> GPLToken:
         return GPLToken(token_id=int(cl), token_type="continuity", value=cl.name)
 
@@ -163,6 +191,8 @@ class GPLVocabulary:
             return {"type": "command", "value": CommandToken(token_id).name}
         elif 20 <= token_id < 24:
             return {"type": "composite", "value": CompositeToken(token_id).name}
+        elif 60 <= token_id < 80:
+            return {"type": "spatial", "value": SpatialToken(token_id).name}
         elif 30 <= token_id < 34:
             return {"type": "continuity", "value": ContinuityToken(token_id).name}
         elif CURVATURE_TOKEN_BASE <= token_id < CURVATURE_TOKEN_BASE + N_CURVATURE_BINS:
