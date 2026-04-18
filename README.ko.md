@@ -54,7 +54,19 @@ AI가 처리해야 할 토큰이 적을수록 더 빠르게 실행되고, 비용
 
 **토큰화(Tokenization)** — 모든 것을 3단계에 걸쳐 간결하고 의미 있는 토큰으로 변환합니다 — 개별 명령(L1)에서 인식된 도형(L2), 공간 패턴(L3)까지.
 
-**복원(Reconstruction)** — 과정을 완벽하게 역전합니다: 토큰이 다시 유효한 SVG 그래픽이 됩니다. 이 왕복 충실도는 47개의 자동화 테스트로 검증됩니다.
+**복원(Reconstruction)** — 과정을 완벽하게 역전합니다: 토큰이 다시 유효한 SVG 그래픽이 됩니다. 왕복 충실도는 8개 파일 180개 단언(assertion)으로 이루어진 자동화 테스트 스위트로 검증되며, v0.5.1부터는 단순 위상(topology)이 아닌 **픽셀 단위 정량 오차**로 측정됩니다.
+
+## v0.5.1 — 신뢰성 강화 및 정량 측정 (Robustness & Measurement)
+
+v0.5 로드맵이 완료된 후, 대규모·적대적 입력에서만 드러나는 틈새를 메우기 위한 집중 강화 릴리스를 진행했습니다.
+
+- **기하 임계값 중앙화**: G0/G1/G2 연속성 임계값 전체를 `utils/constants.py` 의 단일 `GeometricConstants` 데이터클래스로 통합. 이전에는 `continuity.py` 와 `math_utils.py` 가 서로 다른 G1 컷오프(0.1 vs 0.05) 를 사용하던 불일치를 해결.
+- **왕복 충실도 정량화**: 신규 API (`ARCS.theoretical_max_error`, `ARCS.roundtrip_fidelity`, `Detokenizer.measure_fidelity`) 로 양자화 오차를 픽셀 단위로 측정. 분석적 상한은 `(cell_size / 2) · √2`. 실측 결과, adaptive 쿼드트리를 활성화하면 최대 좌표 오차가 기본값(`min_level=2`) 기준 ~49 px → ~2.6 px 로 감소 — **19배 개선**.
+- **생성기 검증 강화**: `Generator._validate_svg` 가 실제 `PathParser` 로 파싱하고 최소 1개의 렌더링 가능 명령(MOVE/CLOSE 제외) 을 요구하도록 변경. 과거의 "M 로 시작 + 숫자 포함" 약한 휴리스틱은 `"M"` 하나만으로도 통과하던 문제가 있었음.
+- **문서화 정합성**: "인접 좌표 토큰 코사인 유사도 ≈ 0.52" 주장은 이제 `embedding/hmn_init.py` 에서 사인파 인코딩 공식으로부터 단계별 유도됨. `GPLVocabulary` 에는 5개의 예약 ID 영역(5-9, 18-19, 24-29, 34-39, 56-59, 71-99) 과 확장 시 동기화해야 할 파일 목록이 명시됨.
+- **42개의 신규 자동화 테스트 단언** (`test_constants.py`, `test_fidelity.py`, `test_generator_validation.py`).
+
+상세 근거와 수식은 [RESEARCH_SUMMARY.md](./RESEARCH_SUMMARY.md) 및 `feat/v0.5.1-robustness` 브랜치 참고.
 
 ## 로드맵
 
@@ -67,6 +79,7 @@ AI가 처리해야 할 토큰이 적을수록 더 빠르게 실행되고, 비용
 - [x] **v0.3** — 공간 지능: 정렬, 대칭, 간격 패턴 인식
 - [x] **v0.4** — AI 임베딩 레이어: 토큰을 신경망에 연결 (PyTorch)
 - [x] **v0.5** — AI 학습 파이프라인: SVG 생성을 위한 언어 모델 파인튜닝
+- [x] **v0.5.1** — 신뢰성 강화: 임계값 통합, 픽셀 단위 충실도 측정, 생성기 검증 강화
 - [ ] **v1.0** — 제품 출시: API 서비스 + Figma 디자인 도구 플러그인
 
 ## 왜 중요한가

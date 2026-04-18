@@ -54,7 +54,19 @@ The tokenizer pipeline has four main stages:
 
 **Tokenization** converts everything into compact, meaningful tokens at three levels — from individual commands (L1) to recognized shapes (L2) to spatial patterns (L3).
 
-**Reconstruction** reverses the process perfectly: tokens become valid SVG graphics again. This round-trip fidelity is verified by 47 automated tests.
+**Reconstruction** reverses the process perfectly: tokens become valid SVG graphics again. Round-trip fidelity is verified by an automated test suite (180 assertions across 8 test files) and — as of v0.5.1 — quantitatively measured in pixel units rather than just topologically.
+
+## v0.5.1 — Robustness & Measurement
+
+After the v0.5 roadmap was complete, we shipped a focused hardening release to close gaps that only surface under adversarial or large-scale inputs:
+
+- **Unified geometric thresholds.** All G0/G1/G2 continuity thresholds are now centralized in a single `GeometricConstants` dataclass (`utils/constants.py`), resolving prior inconsistencies where `continuity.py` and `math_utils.py` used different G1 cutoffs (0.1 vs 0.05).
+- **Quantitative round-trip fidelity.** New APIs (`ARCS.theoretical_max_error`, `ARCS.roundtrip_fidelity`, `Detokenizer.measure_fidelity`) measure quantization error in pixel units with an analytic upper bound of `(cell_size / 2) · √2`. Empirically, enabling adaptive quadtree refinement cuts max coordinate error from ~49 px (default `min_level=2`) to ~2.6 px — a **19× improvement** over the naive setting.
+- **Stronger generator validation.** `Generator._validate_svg` now uses the real `PathParser` and requires at least one renderable (non-MOVE, non-CLOSE) command, replacing the previous weak "starts with M + contains digits" heuristic that accepted `"M"` alone as valid.
+- **Documentation rigor.** The claim that adjacent coordinate tokens have cosine similarity ≈ 0.52 is now derived step-by-step from the sinusoidal encoding formula in `embedding/hmn_init.py`, and `GPLVocabulary` documents its 5 reserved ID ranges (5-9, 18-19, 24-29, 34-39, 56-59, 71-99) for safe future extension.
+- **42 new automated test assertions** across `test_constants.py`, `test_fidelity.py`, and `test_generator_validation.py`.
+
+Full rationale, diffs, and math: see [RESEARCH_SUMMARY.md](./RESEARCH_SUMMARY.md) and the `feat/v0.5.1-robustness` branch.
 
 ## What's Next
 
@@ -67,6 +79,7 @@ The tokenizer pipeline has four main stages:
 - [x] **v0.3** — Spatial intelligence: alignment, symmetry, spacing patterns
 - [x] **v0.4** — AI embedding layer: connect tokens to neural networks (PyTorch)
 - [x] **v0.5** — AI training pipeline: fine-tune language models for SVG generation
+- [x] **v0.5.1** — Robustness: unified thresholds, pixel-level fidelity metrics, stricter validation
 - [ ] **v1.0** — Product: API service + Figma design tool plugin
 
 ## Why This Matters
