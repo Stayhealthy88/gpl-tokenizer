@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <rect width="800" height="200" fill="#fafbfc" rx="16"/>
+
+  <!-- Timeline line -->
+  <line x1="60" y1="100" x2="740" y2="100" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- v0.1 — DONE -->
+  <circle cx="100" cy="100" r="16" fill="#22c55e" stroke="white" stroke-width="3"/>
+  <text x="100" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="system-ui, sans-serif">&#10003;</text>
+  <text x="100" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a" font-family="system-ui, sans-serif">v0.1</text>
+  <text x="100" y="135" text-anchor="middle" font-size="9" fill="#64748b" font-family="system-ui, sans-serif">Core Engine</text>
+  <text x="100" y="148" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="system-ui, sans-serif">Parser + Tokenizer</text>
+
+  <!-- Connecting segment (done) -->
+  <line x1="116" y1="100" x2="214" y2="100" stroke="#22c55e" stroke-width="3"/>
+
+  <!-- v0.2 — DONE -->
+  <circle cx="230" cy="100" r="16" fill="#22c55e" stroke="white" stroke-width="3"/>
+  <text x="230" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="system-ui, sans-serif">&#10003;</text>
+  <text x="230" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a" font-family="system-ui, sans-serif">v0.2</text>
+  <text x="230" y="135" text-anchor="middle" font-size="9" fill="#64748b" font-family="system-ui, sans-serif">Shape Detection</text>
+  <text x="230" y="148" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="system-ui, sans-serif">5.6x compression</text>
+
+  <!-- Connecting segment (done) -->
+  <line x1="246" y1="100" x2="344" y2="100" stroke="#22c55e" stroke-width="3"/>
+
+  <!-- v0.3 — DONE -->
+  <circle cx="360" cy="100" r="16" fill="#22c55e" stroke="white" stroke-width="3"/>
+  <text x="360" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="system-ui, sans-serif">&#10003;</text>
+  <text x="360" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a" font-family="system-ui, sans-serif">v0.3</text>
+  <text x="360" y="135" text-anchor="middle" font-size="9" fill="#64748b" font-family="system-ui, sans-serif">Spatial Relations</text>
+  <text x="360" y="148" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="system-ui, sans-serif">Layout intelligence</text>
+
+  <!-- v0.4 — NEXT -->
+  <circle cx="490" cy="100" r="16" fill="white" stroke="#3b82f6" stroke-width="3"/>
+  <text x="490" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="#3b82f6" font-family="system-ui, sans-serif">4</text>
+  <text x="490" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a" font-family="system-ui, sans-serif">v0.4</text>
+  <text x="490" y="135" text-anchor="middle" font-size="9" fill="#64748b" font-family="system-ui, sans-serif">AI Embedding</text>
+  <text x="490" y="148" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="system-ui, sans-serif">PyTorch integration</text>
+
+  <!-- v0.5 -->
+  <circle cx="600" cy="100" r="16" fill="white" stroke="#e2e8f0" stroke-width="3"/>
+  <text x="600" y="105" text-anchor="middle" font-size="11" font-weight="600" fill="#94a3b8" font-family="system-ui, sans-serif">5</text>
+  <text x="600" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a" font-family="system-ui, sans-serif">v0.5</text>
+  <text x="600" y="135" text-anchor="middle" font-size="9" fill="#64748b" font-family="system-ui, sans-serif">AI Training</text>
+  <text x="600" y="148" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="system-ui, sans-serif">Fine-tune LLM</text>
+
+  <!-- v1.0 -->
+  <circle cx="710" cy="100" r="16" fill="white" stroke="#e2e8f0" stroke-width="3"/>
+  <text x="710" y="105" text-anchor="middle" font-size="10" font-weight="600" fill="#94a3b8" font-family="system-ui, sans-serif">1.0</text>
+  <text x="710" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a" font-family="system-ui, sans-serif">v1.0</text>
+  <text x="710" y="135" text-anchor="middle" font-size="9" fill="#64748b" font-family="system-ui, sans-serif">Product Launch</text>
+  <text x="710" y="148" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="system-ui, sans-serif">API + Figma plugin</text>
+
+  <!-- Progress label -->
+  <rect x="320" y="168" width="160" height="22" rx="11" fill="#ecfdf5" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="400" y="183" text-anchor="middle" font-size="10" font-weight="600" fill="#166534" font-family="system-ui, sans-serif">50% Complete (v0.3 / v1.0)</text>
+</svg>

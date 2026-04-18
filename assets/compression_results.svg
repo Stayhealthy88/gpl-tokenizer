@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <rect width="800" height="420" fill="#fafbfc" rx="16"/>
+
+  <text x="400" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a" font-family="system-ui, sans-serif">Efficiency Gains at Each Level</text>
+  <text x="400" y="56" text-anchor="middle" font-size="12" fill="#64748b" font-family="system-ui, sans-serif">Fewer tokens = faster processing, lower cost, better accuracy</text>
+
+  <!-- Legend -->
+  <rect x="220" y="70" width="12" height="12" rx="3" fill="#94a3b8"/>
+  <text x="238" y="81" font-size="10" fill="#64748b" font-family="system-ui, sans-serif">Standard AI (BPE)</text>
+  <rect x="340" y="70" width="12" height="12" rx="3" fill="#3b82f6"/>
+  <text x="358" y="81" font-size="10" fill="#64748b" font-family="system-ui, sans-serif">Level 1: Basics</text>
+  <rect x="440" y="70" width="12" height="12" rx="3" fill="#8b5cf6"/>
+  <text x="458" y="81" font-size="10" fill="#64748b" font-family="system-ui, sans-serif">Level 2: Shapes</text>
+  <rect x="545" y="70" width="12" height="12" rx="3" fill="#059669"/>
+  <text x="563" y="81" font-size="10" fill="#64748b" font-family="system-ui, sans-serif">Level 3: Relations</text>
+
+  <!-- Chart area -->
+  <!-- Y axis -->
+  <line x1="100" y1="100" x2="100" y2="370" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="55" y="105" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">140</text>
+  <line x1="95" y1="100" x2="750" y2="100" stroke="#f1f5f9" stroke-width="1"/>
+  <text x="55" y="145" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">120</text>
+  <line x1="95" y1="140" x2="750" y2="140" stroke="#f1f5f9" stroke-width="1"/>
+  <text x="55" y="185" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">100</text>
+  <line x1="95" y1="180" x2="750" y2="180" stroke="#f1f5f9" stroke-width="1"/>
+  <text x="55" y="225" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">80</text>
+  <line x1="95" y1="220" x2="750" y2="220" stroke="#f1f5f9" stroke-width="1"/>
+  <text x="55" y="265" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">60</text>
+  <line x1="95" y1="260" x2="750" y2="260" stroke="#f1f5f9" stroke-width="1"/>
+  <text x="55" y="305" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">40</text>
+  <line x1="95" y1="300" x2="750" y2="300" stroke="#f1f5f9" stroke-width="1"/>
+  <text x="55" y="345" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">20</text>
+  <line x1="95" y1="340" x2="750" y2="340" stroke="#f1f5f9" stroke-width="1"/>
+  <text x="55" y="375" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">0</text>
+
+  <!-- X axis -->
+  <line x1="100" y1="370" x2="750" y2="370" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Y axis label -->
+  <text x="18" y="235" text-anchor="middle" font-size="10" fill="#64748b" font-family="system-ui, sans-serif" transform="rotate(-90 18 235)">Number of Tokens</text>
+
+  <!-- Group 1: Single Circle -->
+  <!-- BPE ~47 tokens (estimated from 140 chars / 3) — bar height = 47/140 * 270 = ~90px from bottom -->
+  <rect x="135" y="279" width="28" height="91" rx="3" fill="#94a3b8"/>
+  <text x="149" y="274" text-anchor="middle" font-size="9" font-weight="600" fill="#94a3b8" font-family="system-ui, sans-serif">~47</text>
+
+  <!-- L1 = 28 -->
+  <rect x="167" y="316" width="28" height="54" rx="3" fill="#3b82f6"/>
+  <text x="181" y="311" text-anchor="middle" font-size="9" font-weight="600" fill="#3b82f6" font-family="system-ui, sans-serif">28</text>
+
+  <!-- L2 = 5 -->
+  <rect x="199" y="360" width="28" height="10" rx="3" fill="#8b5cf6"/>
+  <text x="213" y="355" text-anchor="middle" font-size="9" font-weight="600" fill="#8b5cf6" font-family="system-ui, sans-serif">5</text>
+
+  <!-- L3 = 5 (same, single element) -->
+  <rect x="231" y="360" width="28" height="10" rx="3" fill="#059669"/>
+  <text x="245" y="355" text-anchor="middle" font-size="9" font-weight="600" fill="#059669" font-family="system-ui, sans-serif">5</text>
+
+  <text x="195" y="393" text-anchor="middle" font-size="10" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">Single Circle</text>
+
+  <!-- Group 2: 3 Circles in a Row -->
+  <!-- BPE ~100 -->
+  <rect x="325" y="178" width="28" height="192" rx="3" fill="#94a3b8"/>
+  <text x="339" y="173" text-anchor="middle" font-size="9" font-weight="600" fill="#94a3b8" font-family="system-ui, sans-serif">~100</text>
+
+  <!-- L1 = 82 -->
+  <rect x="357" y="212" width="28" height="158" rx="3" fill="#3b82f6"/>
+  <text x="371" y="207" text-anchor="middle" font-size="9" font-weight="600" fill="#3b82f6" font-family="system-ui, sans-serif">82</text>
+
+  <!-- L2 = 13 -->
+  <rect x="389" y="345" width="28" height="25" rx="3" fill="#8b5cf6"/>
+  <text x="403" y="340" text-anchor="middle" font-size="9" font-weight="600" fill="#8b5cf6" font-family="system-ui, sans-serif">13</text>
+
+  <!-- L3 = 11 -->
+  <rect x="421" y="349" width="28" height="21" rx="3" fill="#059669"/>
+  <text x="435" y="344" text-anchor="middle" font-size="9" font-weight="600" fill="#059669" font-family="system-ui, sans-serif">11</text>
+
+  <text x="385" y="393" text-anchor="middle" font-size="10" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">3 Circles (row)</text>
+
+  <!-- Group 3: 5 Circles in a Row -->
+  <!-- BPE ~167 → cap at 140 for display -->
+  <rect x="515" y="100" width="28" height="270" rx="3" fill="#94a3b8"/>
+  <text x="529" y="95" text-anchor="middle" font-size="9" font-weight="600" fill="#94a3b8" font-family="system-ui, sans-serif">~167</text>
+
+  <!-- L1 = 136 -->
+  <rect x="547" y="108" width="28" height="262" rx="3" fill="#3b82f6"/>
+  <text x="561" y="103" text-anchor="middle" font-size="9" font-weight="600" fill="#3b82f6" font-family="system-ui, sans-serif">136</text>
+
+  <!-- L2 = 21 -->
+  <rect x="579" y="330" width="28" height="40" rx="3" fill="#8b5cf6"/>
+  <text x="593" y="325" text-anchor="middle" font-size="9" font-weight="600" fill="#8b5cf6" font-family="system-ui, sans-serif">21</text>
+
+  <!-- L3 = 11 -->
+  <rect x="611" y="349" width="28" height="21" rx="3" fill="#059669"/>
+  <text x="625" y="344" text-anchor="middle" font-size="9" font-weight="600" fill="#059669" font-family="system-ui, sans-serif">11</text>
+
+  <text x="575" y="393" text-anchor="middle" font-size="10" font-weight="600" fill="#1e293b" font-family="system-ui, sans-serif">5 Circles (row)</text>
+
+  <!-- Highlight callout for 5 circles -->
+  <rect x="620" y="290" width="130" height="50" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="685" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#059669" font-family="system-ui, sans-serif">15x fewer tokens</text>
+  <text x="685" y="326" text-anchor="middle" font-size="10" fill="#64748b" font-family="system-ui, sans-serif">vs standard AI</text>
+</svg>
