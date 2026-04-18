@@ -65,7 +65,7 @@ The tokenizer pipeline has four main stages:
 - [x] **v0.1** — Core engine: parser, geometric analyzer, tokenizer, reconstruction
 - [x] **v0.2** — Shape recognition: circles, rectangles compressed to single tokens
 - [x] **v0.3** — Spatial intelligence: alignment, symmetry, spacing patterns
-- [ ] **v0.4** — AI embedding layer: connect tokens to neural networks (PyTorch)
+- [x] **v0.4** — AI embedding layer: connect tokens to neural networks (PyTorch)
 - [ ] **v0.5** — AI training pipeline: fine-tune language models for SVG generation
 - [ ] **v1.0** — Product: API service + Figma design tool plugin
 
